@@ -25,7 +25,7 @@ class NetworkManager {
         decoder.dateDecodingStrategy = .iso8601
     }
     
-    func getFeaturedRecipes(page: Int, isVegetarian: Bool) async throws -> [Recipe] {
+    func getFeaturedRecipes(page: Int, isVegetarian: Bool) async throws -> [String: [Result]] {
         
         let endpoint = baseURL + "feeds/list?size=\(size)&timezone=%2B0500&vegetarian=false&from=\(page)"
         
@@ -40,27 +40,11 @@ class NetworkManager {
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw RPError.invalidResponse }
         
         do {
-            return try decoder.decode([Recipe].self, from: data)
+            return try decoder.decode([String: [Result]].self, from: data)
         } catch {
+            print(error)
             throw RPError.invalidData
         }
         
-//        let request = NSMutableURLRequest(url: NSURL(string: "https://tasty.p.rapidapi.com/feeds/list?size=\(size)&timezone=%2B0500&vegetarian=false&from=\(page)")! as URL,
-//                                                cachePolicy: .useProtocolCachePolicy,
-//                                            timeoutInterval: 10.0)
-//        request.httpMethod = "GET"
-//        request.allHTTPHeaderFields = headers
-//
-//        let session = URLSession.shared
-//        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-//            if (error != nil) {
-//                print(error)
-//            } else {
-//                let httpResponse = response as? HTTPURLResponse
-//                print(httpResponse)
-//            }
-//        })
-//
-//        dataTask.resume()
     }
 }
