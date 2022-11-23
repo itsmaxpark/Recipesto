@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Result
-struct Result: Codable {
+struct Result: Codable, Hashable {
     let type: String
     let name, category: String?
     let minItems: Int?
@@ -16,7 +16,7 @@ struct Result: Codable {
 }
 
 // MARK: - Item
-struct Item: Codable {
+struct Item: Codable, Hashable {
     let keywords: String?
     let thumbnailURL: String?
     let videoURL: String?
@@ -37,7 +37,7 @@ struct Item: Codable {
 }
 
 // MARK: - Recipe
-struct Recipe: Codable {
+struct Recipe: Codable, Hashable {
     let instructions: [Instruction]
     let keywords: String?
     let userRatings: UserRatings
@@ -55,46 +55,46 @@ struct Recipe: Codable {
 }
 
 // MARK: - Brand
-struct Brand: Codable {
+struct Brand: Codable, Hashable {
     let name: String?
 }
 
 // MARK: - Tag
-struct Tag: Codable {
+struct Tag: Codable, Hashable {
     let name: String
 }
 
 // MARK: - Instruction
-struct Instruction: Codable {
+struct Instruction: Codable, Hashable {
     let position: Int
     let displayText: String
 }
 
 // MARK: - UserRatings
-struct UserRatings: Codable {
+struct UserRatings: Codable, Hashable {
     let score: Double
 }
 
 // MARK: - Section
-struct Section: Codable {
+struct Section: Codable, Hashable {
     let components: [Component]
     let name: String?
     let position: Int
 }
 
 // MARK: - Component
-struct Component: Codable {
+struct Component: Codable, Hashable {
     let rawText: String
     let position: Int
 }
 
 // MARK: - Compilation
-struct Compilation: Codable {
+struct Compilation: Codable, Hashable {
     let description: String?
 }
 
 // MARK: - Nutrition
-struct Nutrition: Codable {
+struct Nutrition: Codable, Hashable {
     let carbohydrates, fiber: Int?
     let protein, fat, calories, sugar: Int?
 }

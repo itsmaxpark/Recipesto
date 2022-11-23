@@ -25,6 +25,8 @@
 		50F4CEB9292B008B00AAFED2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CEB8292B008B00AAFED2 /* NetworkManager.swift */; };
 		50F4CEBB292B038000AAFED2 /* RPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CEBA292B038000AAFED2 /* RPError.swift */; };
 		50F4CEBD292B04A500AAFED2 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CEBC292B04A500AAFED2 /* UIViewController+Ext.swift */; };
+		50F4CEC0292E020600AAFED2 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CEBF292E020600AAFED2 /* RecipeCell.swift */; };
+		50F4CEC3292E026300AAFED2 /* RPRecipeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CEC2292E026300AAFED2 /* RPRecipeImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		50F4CEB8292B008B00AAFED2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		50F4CEBA292B038000AAFED2 /* RPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPError.swift; sourceTree = "<group>"; };
 		50F4CEBC292B04A500AAFED2 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		50F4CEBF292E020600AAFED2 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
+		50F4CEC2292E026300AAFED2 /* RPRecipeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPRecipeImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,8 @@
 		50F4CEAF292AFBF400AAFED2 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				50F4CEC1292E024600AAFED2 /* ImageViews */,
+				50F4CEBE292E01F400AAFED2 /* Cells */,
 				50F4CEB2292AFC2200AAFED2 /* Controllers */,
 				50F4CEB3292AFC2800AAFED2 /* Views */,
 				50F4CEB0292AFC0400AAFED2 /* Labels */,
@@ -181,6 +187,22 @@
 				50F4CEB8292B008B00AAFED2 /* NetworkManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		50F4CEBE292E01F400AAFED2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				50F4CEBF292E020600AAFED2 /* RecipeCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		50F4CEC1292E024600AAFED2 /* ImageViews */ = {
+			isa = PBXGroup;
+			children = (
+				50F4CEC2292E026300AAFED2 /* RPRecipeImageView.swift */,
+			);
+			path = ImageViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +279,7 @@
 				50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */,
 				50F4CE9F292A36E200AAFED2 /* FavoritesVC.swift in Sources */,
 				50F4CEA1292AFAA200AAFED2 /* RPAlertVC.swift in Sources */,
+				50F4CEC0292E020600AAFED2 /* RecipeCell.swift in Sources */,
 				50F4CEBB292B038000AAFED2 /* RPError.swift in Sources */,
 				50F4CE852924793D00AAFED2 /* AppDelegate.swift in Sources */,
 				50F4CEA7292AFB5A00AAFED2 /* RPTitleLabel.swift in Sources */,
@@ -266,6 +289,7 @@
 				50F4CEA5292AFB2A00AAFED2 /* RPButton.swift in Sources */,
 				50F4CEB9292B008B00AAFED2 /* NetworkManager.swift in Sources */,
 				50F4CEB6292AFFC800AAFED2 /* Recipe.swift in Sources */,
+				50F4CEC3292E026300AAFED2 /* RPRecipeImageView.swift in Sources */,
 				50F4CEA9292AFB6600AAFED2 /* RPBodyLabel.swift in Sources */,
 				50F4CEBD292B04A500AAFED2 /* UIViewController+Ext.swift in Sources */,
 				50F4CE872924793D00AAFED2 /* SceneDelegate.swift in Sources */,
