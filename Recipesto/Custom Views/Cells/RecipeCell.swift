@@ -22,13 +22,19 @@ class RecipeCell: UICollectionViewCell {
         fatalError()
     }
     
-    func set(recipe: Recipe) {
-        guard let urlString = recipe.thumbnailURL else { return }
+    func set(recipe: Item) {
+        print(recipe)
+        guard let urlString = recipe.thumbnailUrl else {
+            print("recipe set failed")
+            return
+        }
         recipeLabel.text = recipe.name
         recipeImageView.downloadImage(fromURL: urlString)
+        print("recipe set")
     }
     
     private func configure() {
+        
         addSubviews(recipeImageView, recipeLabel)
         
         let padding: CGFloat = 8

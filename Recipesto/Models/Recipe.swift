@@ -8,28 +8,41 @@
 import Foundation
 
 // MARK: - Result
-struct Result: Codable, Hashable {
+struct Result: Codable, Hashable, Identifiable {
+    var id = UUID()
+    
     let type: String
     let name, category: String?
     let minItems: Int?
     let items: [Item]?
+    let item: Item?
+}
+
+extension Result {
+    enum CodingKeys: CodingKey {
+        case type
+        case name, category
+        case minItems
+        case items
+        case item
+    }
 }
 
 // MARK: - Item
 struct Item: Codable, Hashable {
-    let keywords: String?
-    let thumbnailURL: String?
-    let videoURL: String?
     let credits: [Brand]
-    let id: Int
     let recipes: [Recipe]?
     let tags: [Tag]
-    let name: String
     let instructions: [Instruction]?
     let userRatings: UserRatings?
-    let prepTimeMinutes: Int?
     let sections: [Section]?
     let compilations: [Compilation]?
+    let keywords: String?
+    let thumbnailUrl: String?
+    let videoUrl: String?
+    let name: String
+    let id: Int
+    let prepTimeMinutes: Int?
     let numServings: Int?
     let totalTimeMinutes: Int?
     let cookTimeMinutes: Int?
@@ -38,19 +51,19 @@ struct Item: Codable, Hashable {
 
 // MARK: - Recipe
 struct Recipe: Codable, Hashable {
-    let instructions: [Instruction]
+    let credits: [Brand]?
+    let instructions: [Instruction]?
+    let userRatings: UserRatings?
+    let sections: [Section]?
+    let nutrition: Nutrition?
     let keywords: String?
-    let userRatings: UserRatings
-    let prepTimeMinutes: Int?
-    let sections: [Section]
-    let nutrition: Nutrition
-    let name: String
-    let numServings: Int
+    let name: String?
     let thumbnailURL: String?
-    let totalTimeMinutes: Int?
     let videoURL: String?
-    let credits: [Brand]
-    let yields: String
+    let yields: String?
+    let prepTimeMinutes: Int?
+    let numServings: Int?
+    let totalTimeMinutes: Int?
     let cookTimeMinutes: Int?
 }
 

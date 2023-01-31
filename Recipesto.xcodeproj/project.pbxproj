@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303ED2981F2C80002C90C /* RPFlowLayout.swift */; };
+		50E303F0298825DA0002C90C /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303EF298825DA0002C90C /* json.swift */; };
 		50F4CE852924793D00AAFED2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE842924793D00AAFED2 /* AppDelegate.swift */; };
 		50F4CE872924793D00AAFED2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE862924793D00AAFED2 /* SceneDelegate.swift */; };
 		50F4CE8E2924793E00AAFED2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F4CE8D2924793E00AAFED2 /* Assets.xcassets */; };
@@ -30,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50E303ED2981F2C80002C90C /* RPFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPFlowLayout.swift; sourceTree = "<group>"; };
+		50E303EF298825DA0002C90C /* json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
 		50F4CE812924793D00AAFED2 /* Recipesto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipesto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F4CE842924793D00AAFED2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50F4CE862924793D00AAFED2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -65,9 +69,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		50E303EC2981F2A30002C90C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				50E303ED2981F2C80002C90C /* RPFlowLayout.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		50F4CE782924793D00AAFED2 = {
 			isa = PBXGroup;
 			children = (
+				50E303EF298825DA0002C90C /* json.swift */,
 				50F4CE832924793D00AAFED2 /* Recipesto */,
 				50F4CE822924793D00AAFED2 /* Products */,
 			);
@@ -86,6 +99,7 @@
 			children = (
 				50F4CEAC292AFBB100AAFED2 /* App Resources */,
 				50F4CEAE292AFBE300AAFED2 /* Extensions */,
+				50E303EC2981F2A30002C90C /* Utilities */,
 				50F4CEB7292B007500AAFED2 /* Managers */,
 				50F4CEB4292AFFB500AAFED2 /* Models */,
 				50F4CEAD292AFBC500AAFED2 /* Screens */,
@@ -277,10 +291,12 @@
 			files = (
 				50F4CE9B292A36CD00AAFED2 /* SearchVC.swift in Sources */,
 				50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */,
+				50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */,
 				50F4CE9F292A36E200AAFED2 /* FavoritesVC.swift in Sources */,
 				50F4CEA1292AFAA200AAFED2 /* RPAlertVC.swift in Sources */,
 				50F4CEC0292E020600AAFED2 /* RecipeCell.swift in Sources */,
 				50F4CEBB292B038000AAFED2 /* RPError.swift in Sources */,
+				50E303F0298825DA0002C90C /* json.swift in Sources */,
 				50F4CE852924793D00AAFED2 /* AppDelegate.swift in Sources */,
 				50F4CEA7292AFB5A00AAFED2 /* RPTitleLabel.swift in Sources */,
 				50F4CEA3292AFAEA00AAFED2 /* RPAlertContainerView.swift in Sources */,
