@@ -32,35 +32,21 @@ class BrowseVC: UIViewController {
         collectionView.delegate = self
         collectionView.backgroundColor = .systemBackground
         collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: RecipeCell.identifier)
+        collectionView.register(RPSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RPSectionHeader.reuseIdentifier)
     }
     
     func getRecipes() {
         Task {
             do {
                 let featuredResponse: [String: [Result]] = try await NetworkManager.shared.getFeaturedRecipes(page: 0, isVegetarian: false)
-                guard let featuredResults = featuredResponse["results"] else {
-                    print("results fetch failed")
-                    return
-                }
-//                self.sections = featuredResults
+                guard let featuredResults = featuredResponse["results"] else { return }
                 var sections: [Result] = []
-                for result in featuredResults {
-                    if result.minItems == 8 {
-                        sections.append(result)
-                        print(result.name ?? "No name")
-                    }
-                }
+                for result in featuredResults { if result.minItems == 8 { sections.append(result) } }
                 self.sections = sections
                 reloadData()
-                
             } catch {
                 if let rpError = error as? RPError {
-                    presentRPAlert(title: "Uh oh", message: rpError.rawValue, buttonTitle: "Ok")
-                    print("getRecipes: error")
-                }
-                else {
-                    presentDefaultAlert()
-                }
+                    presentRPAlert(title: "Uh oh", message: rpError.rawValue, buttonTitle: "Ok") } else { presentDefaultAlert() }
             }
         }
     }
@@ -78,9 +64,10 @@ class BrowseVC: UIViewController {
                 return self.createFeaturedSection(using: section)
             }
         }
-
+        
         let config = UICollectionViewCompositionalLayoutConfiguration()
         config.interSectionSpacing = 20
+        config.scrollDirection = .vertical
         layout.configuration = config
         return layout
     }
@@ -91,6 +78,17 @@ class BrowseVC: UIViewController {
             cell.set(recipe: recipe)
             return cell
         })
+        
+        dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
+            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RPSectionHeader.reuseIdentifier, for: indexPath) as? RPSectionHeader else { return UICollectionReusableView() }
+
+            guard let firstRecipe = self?.dataSource?.itemIdentifier(for: indexPath) else { return UICollectionReusableView() }
+            guard let section = self?.dataSource?.snapshot().sectionIdentifier(containingItem: firstRecipe) else { return UICollectionReusableView() }
+            if section.name == nil { return UICollectionReusableView() }
+
+            sectionHeader.title.text = section.name
+            return sectionHeader
+        }
     }
     
     // A featured section displaying only one recipe with no scrolling
@@ -100,25 +98,28 @@ class BrowseVC: UIViewController {
         let layoutItem = NSCollectionLayoutItem(layoutSize: itemSize)
         layoutItem.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
 
-        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.93), heightDimension: .estimated(350))
+        let layoutGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(0.2))
         let layoutGroup = NSCollectionLayoutGroup.horizontal(layoutSize: layoutGroupSize, subitems: [layoutItem])
 
         let layoutSection = NSCollectionLayoutSection(group: layoutGroup)
-        layoutSection.orthogonalScrollingBehavior = .none
+        layoutSection.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+        
+        let layoutSectionHeader = createSectionHeader()
+        layoutSection.boundarySupplementaryItems = [layoutSectionHeader]
+        
         return layoutSection
     }
     
+    func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.93), heightDimension: .estimated(80))
+        let layoutSectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+        return layoutSectionHeader
+    }
+    
     func reloadData() {
-        print("Reload data")
         var snapshot = NSDiffableDataSourceSnapshot<Result, Item>()
         snapshot.appendSections(sections)
-        for section in sections {
-//            print(section)
-            if let items: [Item] = section.items {
-                snapshot.appendItems(items, toSection: section)
-            }
-        }
-
+        for section in sections { if let items: [Item] = section.items { snapshot.appendItems(items, toSection: section) } }
         dataSource?.apply(snapshot)
     }
 }

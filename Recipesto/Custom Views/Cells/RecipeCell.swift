@@ -23,14 +23,11 @@ class RecipeCell: UICollectionViewCell {
     }
     
     func set(recipe: Item) {
-        print(recipe)
         guard let urlString = recipe.thumbnailUrl else {
-            print("recipe set failed")
             return
         }
         recipeLabel.text = recipe.name
         recipeImageView.downloadImage(fromURL: urlString)
-        print("recipe set")
     }
     
     private func configure() {
