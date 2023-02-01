@@ -125,7 +125,16 @@ class BrowseVC: UIViewController {
 }
 
 extension BrowseVC: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let sectionRecipes = sections[indexPath.section].items else { return }
+        let recipe = sectionRecipes[indexPath.item]
+        
+        let destVC = RecipeInfoVC()
+        destVC.title = recipe.name
+        
+        let navController = UINavigationController(rootViewController: destVC)
+        present(navController, animated: true)
+    }
 }
 
 

@@ -11,7 +11,7 @@ class RecipeCell: UICollectionViewCell {
     static let identifier = "RecipeCell"
     
     let recipeImageView = RPRecipeImageView(frame: .zero)
-    let recipeLabel = RPTitleLabel(textAlignment: .center, fontSize: 16)
+    let recipeLabel = RPTitleLabel(textAlignment: .left, fontSize: 16)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,10 +42,10 @@ class RecipeCell: UICollectionViewCell {
             recipeImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             recipeImageView.heightAnchor.constraint(equalTo: recipeImageView.widthAnchor),
             
-            recipeLabel.topAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: 12),
+            recipeLabel.topAnchor.constraint(equalTo: recipeImageView.bottomAnchor, constant: 6),
             recipeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
             recipeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
-            recipeLabel.heightAnchor.constraint(equalToConstant: 20),
+            recipeLabel.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
 }
