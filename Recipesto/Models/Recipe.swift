@@ -85,7 +85,7 @@ struct Instruction: Codable, Hashable {
 
 // MARK: - UserRatings
 struct UserRatings: Codable, Hashable {
-    let score: Double
+    let score: Double?
 }
 
 // MARK: - Section

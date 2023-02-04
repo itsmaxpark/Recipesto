@@ -27,7 +27,7 @@ class RPTitleLabel: UILabel {
     private func configure() {
         textColor = .label
         adjustsFontSizeToFitWidth = true
-        minimumScaleFactor = 0.7
+        minimumScaleFactor = 0.75
         numberOfLines = 2
         lineBreakMode = .byTruncatingTail
         translatesAutoresizingMaskIntoConstraints = false

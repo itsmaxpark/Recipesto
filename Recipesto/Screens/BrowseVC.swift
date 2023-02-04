@@ -51,10 +51,6 @@ class BrowseVC: UIViewController {
         }
     }
     
-    func createBrowseFlowLayout() -> UICollectionViewFlowLayout {
-        return UICollectionViewFlowLayout()
-    }
-    
     func createCompositionalLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let section = self.sections[sectionIndex]
@@ -130,10 +126,8 @@ extension BrowseVC: UICollectionViewDelegate {
         let recipe = sectionRecipes[indexPath.item]
         
         let destVC = RecipeInfoVC()
-        destVC.title = recipe.name
-        
-        let navController = UINavigationController(rootViewController: destVC)
-        present(navController, animated: true)
+        destVC.set(recipe: recipe)
+        navigationController?.pushViewController(destVC, animated: true)
     }
 }
 
