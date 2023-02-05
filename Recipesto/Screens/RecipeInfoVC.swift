@@ -18,7 +18,7 @@ class RecipeInfoVC: UIViewController {
     
     let titleLabel = RPTitleLabel(textAlignment: .center, fontSize: 32)
     let videoPlayer = AVPlayerViewController()
-    var tableView: UITableView!
+    var tableView: UITableView = UITableView()
     var dataSource: UITableViewDiffableDataSource<Int, Component>?
     
     override func viewDidLoad() {
@@ -42,10 +42,9 @@ class RecipeInfoVC: UIViewController {
     }
     
     private func configureTableView() {
-        tableView = UITableView(frame: view.bounds)
-        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
-        
+        tableView.backgroundColor = .systemPink
     }
     
     private func configureVideoPlayer() {
@@ -63,7 +62,7 @@ class RecipeInfoVC: UIViewController {
     }
     
     private func configureUI() {
-        view.addSubviews(titleLabel, videoPlayer.view)
+        view.addSubviews(titleLabel, videoPlayer.view, tableView)
         let padding: CGFloat = 6
         let width: CGFloat = ScreenSize.width
         
@@ -76,7 +75,12 @@ class RecipeInfoVC: UIViewController {
             videoPlayer.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
             videoPlayer.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             videoPlayer.view.widthAnchor.constraint(equalToConstant: width),
-            videoPlayer.view.heightAnchor.constraint(equalToConstant: width)
+            videoPlayer.view.heightAnchor.constraint(equalToConstant: width),
+            
+            tableView.topAnchor.constraint(equalTo: videoPlayer.view.bottomAnchor, constant: padding),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 }
