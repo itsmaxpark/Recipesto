@@ -10,6 +10,10 @@ import AVKit
 
 class RecipeInfoVC: UIViewController {
     
+    enum IngredientSection {
+        case main
+    }
+    
     var name = String()
     var videoUrl = String()
     var ingredients: [Section] = []
@@ -19,7 +23,7 @@ class RecipeInfoVC: UIViewController {
     let titleLabel = RPTitleLabel(textAlignment: .center, fontSize: 32)
     let videoPlayer = AVPlayerViewController()
     var tableView: UITableView = UITableView()
-    var dataSource: UITableViewDiffableDataSource<Int, Component>?
+    var dataSource: UITableViewDiffableDataSource<Section, Component>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +31,8 @@ class RecipeInfoVC: UIViewController {
         configureUI()
         configureVideoPlayer()
         configureTableView()
+        configureDataSource()
+        reloadData()
     }
     
     func set(recipe: Item) {
@@ -37,14 +43,31 @@ class RecipeInfoVC: UIViewController {
         instructions = recipe.instructions ?? []
         
         titleLabel.text = name
-        
-        print(ingredients[0].components)
     }
     
     private func configureTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.backgroundColor = .systemPink
+        tableView.register(IngredientCell.self, forCellReuseIdentifier: IngredientCell.identifier)
+    }
+    
+    private func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, component in
+            let cell = tableView.dequeueReusableCell(withIdentifier: IngredientCell.identifier, for: indexPath) as! IngredientCell
+            cell.set(component: component)
+            return cell
+        })
+    }
+    
+    func reloadData() {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Component>()
+        snapshot.appendSections(ingredients)
+        for section in ingredients {
+            let components: [Component] = section.components
+            snapshot.appendItems(components, toSection: section)
+        }
+        dataSource?.apply(snapshot)
     }
     
     private func configureVideoPlayer() {
@@ -80,7 +103,7 @@ class RecipeInfoVC: UIViewController {
             tableView.topAnchor.constraint(equalTo: videoPlayer.view.bottomAnchor, constant: padding),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.heightAnchor.constraint(equalToConstant: 200)
         ])
     }
 }

@@ -99,6 +99,28 @@ struct Section: Codable, Hashable {
 struct Component: Codable, Hashable {
     let rawText: String
     let position: Int
+    let ingredient: Ingredient
+    let measurements: [Measurement]
+}
+
+// MARK: - Ingredient
+struct Ingredient: Codable, Hashable {
+    let name: String
+}
+
+// MARK: - Measurement
+struct Measurement: Codable, Hashable {
+    let unit: Unit
+    let quantity: String
+}
+
+// MARK: - Unit
+struct Unit: Codable, Hashable {
+    let system: String
+    let name: String
+    let displayPlural: String
+    let displaySingular: String
+    let abbreviation: String
 }
 
 // MARK: - Compilation
