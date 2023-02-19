@@ -18,14 +18,14 @@ class RPBodyLabel: UILabel {
         fatalError()
     }
     
-    convenience init(textAlignment: NSTextAlignment) {
+    convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         self.init(frame: .zero)
         self.textAlignment = textAlignment
+        self.font = UIFont.preferredFont(forTextStyle: .body).withSize(fontSize)
     }
     
     private func configure() {
         textColor = .secondaryLabel
-        font = UIFont.preferredFont(forTextStyle: .body)
         adjustsFontForContentSizeCategory = true
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.75

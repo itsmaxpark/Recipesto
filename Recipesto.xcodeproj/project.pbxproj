@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50A432BE29A2B58700388920 /* RPRecipeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A432BD29A2B58700388920 /* RPRecipeLabel.swift */; };
 		50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303ED2981F2C80002C90C /* RPFlowLayout.swift */; };
 		50E303F0298825DA0002C90C /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303EF298825DA0002C90C /* json.swift */; };
 		50E303F2298999030002C90C /* RPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303F1298999030002C90C /* RPConstants.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50A432BD29A2B58700388920 /* RPRecipeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPRecipeLabel.swift; sourceTree = "<group>"; };
 		50E303ED2981F2C80002C90C /* RPFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPFlowLayout.swift; sourceTree = "<group>"; };
 		50E303EF298825DA0002C90C /* json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
 		50E303F1298999030002C90C /* RPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPConstants.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				50F4CEA6292AFB5A00AAFED2 /* RPTitleLabel.swift */,
+				50A432BD29A2B58700388920 /* RPRecipeLabel.swift */,
 				50F4CEA8292AFB6600AAFED2 /* RPBodyLabel.swift */,
 			);
 			path = Labels;
@@ -304,6 +307,7 @@
 				50F4CE9B292A36CD00AAFED2 /* SearchVC.swift in Sources */,
 				50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */,
 				50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */,
+				50A432BE29A2B58700388920 /* RPRecipeLabel.swift in Sources */,
 				50F4CE9F292A36E200AAFED2 /* FavoritesVC.swift in Sources */,
 				50E303F6298B23970002C90C /* RecipeInfoVC.swift in Sources */,
 				50F4CEA1292AFAA200AAFED2 /* RPAlertVC.swift in Sources */,

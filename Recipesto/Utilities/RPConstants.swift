@@ -19,6 +19,10 @@ enum Images {
     static let placeholder = UIImage(systemName: "fork.knife.circle.fill")
 }
 
+enum Colors {
+    static let RPGreen = UIColor(displayP3Red: 151/255, green: 198/255, blue: 86/255, alpha: 1)
+}
+
 enum ScreenSize {
     static let width        = UIScreen.main.bounds.size.width
     static let height       = UIScreen.main.bounds.size.height

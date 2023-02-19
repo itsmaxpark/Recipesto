@@ -30,7 +30,7 @@ class RPSectionHeader: UICollectionReusableView {
         addSubview(stackView)
 
         NSLayoutConstraint.activate([
-            separator.heightAnchor.constraint(equalToConstant: 1),
+            separator.heightAnchor.constraint(equalToConstant: 0),
 
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),

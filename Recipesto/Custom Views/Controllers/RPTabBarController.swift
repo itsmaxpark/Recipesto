@@ -11,7 +11,7 @@ class RPTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        UITabBar.appearance().tintColor = .systemGreen
+        UITabBar.appearance().tintColor = .systemGreen
         viewControllers = [createBrowseNC() ,createSearchNC(), createFavoritesNC()]
     }
     

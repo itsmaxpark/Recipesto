@@ -11,8 +11,10 @@ import UIKit
 class IngredientCell: UITableViewCell {
     static let identifier = "IngredientCell"
     
-    let nameLabel = RPBodyLabel(textAlignment: .left)
-    let amountLabel = RPBodyLabel(textAlignment: .right)
+    let nameLabel = RPBodyLabel(textAlignment: .left, fontSize: 14)
+    let amountLabel = RPTitleLabel(textAlignment: .right, fontSize: 14)
+    
+    let stackView = UIStackView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,6 +23,18 @@ class IngredientCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    override func layoutSubviews(){
+        super.layoutSubviews()
+        
+        // Removes Separator line on Top and Bottom of each Section
+        for subview in subviews where (
+            subview != contentView &&
+            abs(subview.frame.width - frame.width) <= 0.1
+            && subview.frame.height < 2) {
+            subview.removeFromSuperview()         
+        }
     }
     
     func set(component: Component) {
@@ -47,21 +61,22 @@ class IngredientCell: UITableViewCell {
     }
     
     func configure() {
-        addSubviews(nameLabel, amountLabel)
+        contentView.addSubview(stackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalCentering
+        stackView.alignment = .center
+        [nameLabel, amountLabel].forEach { stackView.addArrangedSubview($0) }
         
-        let padding: CGFloat = 6
+        separatorInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        
+        let padding: CGFloat = 16
         
         NSLayoutConstraint.activate([
-            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 8),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            nameLabel.widthAnchor.constraint(equalToConstant: 200),
-            nameLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1.0),
-            
-            amountLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 8),
-            amountLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 40),
-//            amountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            amountLabel.widthAnchor.constraint(equalToConstant: 100),
-            amountLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 1.0)
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
 }

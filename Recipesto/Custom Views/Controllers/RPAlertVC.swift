@@ -11,7 +11,7 @@ class RPAlertVC: UIViewController {
     
     let containerView = RPAlertContainerView()
     let titleLabel = RPTitleLabel(textAlignment: .center, fontSize: 20)
-    let messageLabel = RPBodyLabel(textAlignment: .center)
+    let messageLabel = RPBodyLabel(textAlignment: .center, fontSize: 14)
     let actionButton = RPButton(color: .systemPink, title: "Ok", systemImageName: "checkmark.circle")
     
     var alertTitle: String?

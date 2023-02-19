@@ -20,7 +20,7 @@ class RecipeInfoVC: UIViewController {
     var numServings = 0
     var instructions: [Instruction] = []
     
-    let titleLabel = RPTitleLabel(textAlignment: .center, fontSize: 32)
+    let titleLabel = RPTitleLabel(textAlignment: .left, fontSize: 28)
     let videoPlayer = AVPlayerViewController()
     var tableView: UITableView = UITableView(frame: .zero, style: .grouped)
     var dataSource: UITableViewDiffableDataSource<Section, Component>?
@@ -88,9 +88,12 @@ class RecipeInfoVC: UIViewController {
     private func configureTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
-        tableView.backgroundColor = .systemPink
+        tableView.backgroundColor = .secondarySystemBackground
         tableView.register(IngredientCell.self, forCellReuseIdentifier: IngredientCell.identifier)
         tableView.alwaysBounceVertical = false
+        tableView.showsVerticalScrollIndicator = false
+        tableView.sectionHeaderTopPadding = 0
+        tableView.sectionFooterHeight = 0
     }
     
     private func configureDataSource() {
@@ -111,56 +114,65 @@ class RecipeInfoVC: UIViewController {
         let padding: CGFloat = 6
         let width: CGFloat = ScreenSize.width
         view.addSubview(tableView)
-//        headerView.addSubviews(titleLabel, videoPlayer.view)
-//        tableView.tableHeaderView = headerView
-//        headerView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-//            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
-//            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-//            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-//            titleLabel.heightAnchor.constraint(equalToConstant: 80),
-//
-//            videoPlayer.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-//            videoPlayer.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-//            videoPlayer.view.widthAnchor.constraint(equalToConstant: width),
-//            videoPlayer.view.heightAnchor.constraint(equalToConstant: width),
-
         ])
     }
 }
 
 extension RecipeInfoVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 40
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 80+width
+        switch section {
+        case 0:
+            return 110 + width
+        default:
+            return 30
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        
+        let padding: CGFloat = 16
+        let componentLabel = RPTitleLabel(textAlignment: .left, fontSize: 14)
+        componentLabel.text = ingredients[section].name?.uppercased() ?? "INGREDIENTS"
         let headerView = UIView()
-        headerView.addSubviews(titleLabel, videoPlayer.view)
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 80),
-
-            videoPlayer.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            videoPlayer.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            videoPlayer.view.widthAnchor.constraint(equalTo: headerView.widthAnchor),
-            videoPlayer.view.heightAnchor.constraint(equalTo: headerView.heightAnchor),
-        ])
-        return headerView
+        switch section {
+        case 0:
+            headerView.addSubviews(titleLabel, videoPlayer.view, componentLabel)
+            NSLayoutConstraint.activate([
+                titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
+                titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+                titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+                titleLabel.heightAnchor.constraint(equalToConstant: 80),
+                
+                videoPlayer.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+                videoPlayer.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+                videoPlayer.view.widthAnchor.constraint(equalTo: headerView.widthAnchor),
+                videoPlayer.view.heightAnchor.constraint(equalTo: headerView.widthAnchor),
+                
+                componentLabel.topAnchor.constraint(equalTo: videoPlayer.view.bottomAnchor, constant: 6),
+                componentLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+                componentLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+                componentLabel.heightAnchor.constraint(equalToConstant: 30)
+            ])
+            return headerView
+        default:
+            headerView.addSubviews(componentLabel)
+            NSLayoutConstraint.activate([
+                componentLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 6),
+                componentLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+                componentLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+                componentLabel.heightAnchor.constraint(equalToConstant: 30)
+            ])
+            return headerView
+        }
     }
     
 }

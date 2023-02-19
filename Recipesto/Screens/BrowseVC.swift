@@ -27,10 +27,14 @@ class BrowseVC: UIViewController {
     }
     
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createCompositionalLayout())
+        collectionView = UICollectionView(frame: view.safeAreaLayoutGuide.layoutFrame, collectionViewLayout: createCompositionalLayout())
         view.addSubview(collectionView)
         collectionView.delegate = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.backgroundColor = .secondarySystemBackground
+        collectionView.automaticallyAdjustsScrollIndicatorInsets = true
+        let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
+        collectionView.contentInset = adjustForTabbarInsets
+        collectionView.scrollIndicatorInsets = adjustForTabbarInsets
         collectionView.register(RecipeCell.self, forCellWithReuseIdentifier: RecipeCell.identifier)
         collectionView.register(RPSectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RPSectionHeader.reuseIdentifier)
     }
