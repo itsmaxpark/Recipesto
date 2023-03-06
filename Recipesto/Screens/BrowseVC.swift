@@ -15,18 +15,18 @@ class BrowseVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
-        configureCollectionView()
+        configureVC()
+        configureCV()
         getRecipes()
         configureDataSource()
     }
     
-    func configureViewController() {
+    func configureVC() {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
-    func configureCollectionView() {
+    func configureCV() {
         collectionView = UICollectionView(frame: view.safeAreaLayoutGuide.layoutFrame, collectionViewLayout: createCompositionalLayout())
         view.addSubview(collectionView)
         collectionView.delegate = self

@@ -25,15 +25,16 @@ class IngredientCell: UITableViewCell {
         fatalError()
     }
     
+    /// Remove seperator line from top and bottom of each section header
     override func layoutSubviews(){
         super.layoutSubviews()
         
-        // Removes Separator line on Top and Bottom of each Section
-        for subview in subviews where (
-            subview != contentView &&
-            abs(subview.frame.width - frame.width) <= 0.1
-            && subview.frame.height < 2) {
-            subview.removeFromSuperview()         
+        let width = subviews[0].frame.width
+
+        for view in subviews where view != contentView {
+            if view.frame.width == width {
+                view.removeFromSuperview()
+            }
         }
     }
     

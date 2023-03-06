@@ -7,47 +7,6 @@
 
 import Foundation
 
-// MARK: - Result
-struct Result: Codable, Hashable, Identifiable {
-    var id = UUID()
-    
-    let type: String
-    let name, category: String?
-    let minItems: Int?
-    let items: [Item]?
-    let item: Item?
-}
-
-extension Result {
-    enum CodingKeys: CodingKey {
-        case type
-        case name, category
-        case minItems
-        case items
-        case item
-    }
-}
-
-// MARK: - Item
-struct Item: Codable, Hashable {
-    let credits: [Brand]
-    let recipes: [Recipe]?
-    let tags: [Tag]
-    let instructions: [Instruction]?
-    let userRatings: UserRatings?
-    let sections: [Section]?
-    let compilations: [Compilation]?
-    let keywords: String?
-    let thumbnailUrl: String?
-    let videoUrl: String?
-    let name: String
-    let id: Int
-    let prepTimeMinutes: Int?
-    let numServings: Int?
-    let totalTimeMinutes: Int?
-    let cookTimeMinutes: Int?
-
-}
 
 // MARK: - Recipe
 struct Recipe: Codable, Hashable {
@@ -77,12 +36,6 @@ struct Tag: Codable, Hashable {
     let name: String
 }
 
-// MARK: - Instruction
-struct Instruction: Codable, Hashable {
-    let position: Int
-    let displayText: String
-}
-
 // MARK: - UserRatings
 struct UserRatings: Codable, Hashable {
     let score: Double?
@@ -108,20 +61,6 @@ struct Ingredient: Codable, Hashable {
     let name: String
 }
 
-// MARK: - Measurement
-struct Measurement: Codable, Hashable {
-    let unit: Unit
-    let quantity: String
-}
-
-// MARK: - Unit
-struct Unit: Codable, Hashable {
-    let system: String
-    let name: String
-    let displayPlural: String
-    let displaySingular: String
-    let abbreviation: String
-}
 
 // MARK: - Compilation
 struct Compilation: Codable, Hashable {

@@ -10,8 +10,15 @@ import AVKit
 
 class RecipeInfoVC: UIViewController {
     
-    enum IngredientSection {
-        case main
+//    enum DataSection: String, CaseIterable, Hashable {
+//        case ingredient = "ingredient"
+//        case instruction = "instruction"
+//    }
+    
+    struct RecipeSection: Hashable {
+        let components: [Component]?
+        let instructions: [Instruction]?
+        let title: String?
     }
     
     var name = String()
@@ -22,8 +29,8 @@ class RecipeInfoVC: UIViewController {
     
     let titleLabel = RPTitleLabel(textAlignment: .left, fontSize: 28)
     let videoPlayer = AVPlayerViewController()
-    var tableView: UITableView = UITableView(frame: .zero, style: .grouped)
-    var dataSource: UITableViewDiffableDataSource<Section, Component>?
+    var tableView = UITableView(frame: .zero, style: .grouped)
+    var dataSource: UITableViewDiffableDataSource<RecipeSection, AnyHashable>?
     
     let scrollView = UIScrollView()
     var headerView = UIView(frame: .zero)
@@ -33,6 +40,7 @@ class RecipeInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
+        configureNavigationBar()
         configureUI()
         configureVideoPlayer()
         configureTableView()
@@ -63,19 +71,33 @@ class RecipeInfoVC: UIViewController {
         ingredients = recipe.sections ?? []
         numServings = recipe.numServings ?? 1
         instructions = recipe.instructions ?? []
-        
         titleLabel.text = name
     }
     
-    
     func reloadData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Component>()
-        snapshot.appendSections(ingredients)
-        for section in ingredients {
-            let components: [Component] = section.components
-            snapshot.appendItems(components, toSection: section)
+        var snapshot = NSDiffableDataSourceSnapshot<RecipeSection, AnyHashable>()
+        var sections: [RecipeSection] = []
+        for recipeSection in ingredients {
+            let section = RecipeSection(components: recipeSection.components, instructions: nil, title: recipeSection.name)
+            sections.append(section)
         }
-        dataSource?.apply(snapshot)
+        let instructionSection = RecipeSection(components: nil, instructions: instructions, title: "Preparation")
+        sections.append(instructionSection)
+        
+        snapshot.appendSections(sections)
+        
+        for section in sections {
+            if let ingredients = section.components {
+                snapshot.appendItems(ingredients, toSection: section)
+            } else if let instructions = section.instructions {
+                snapshot.appendItems(instructions, toSection: section)
+            }
+        }
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func addToFavorites() {
+        
     }
     
     private func configureVideoPlayer() {
@@ -85,11 +107,13 @@ class RecipeInfoVC: UIViewController {
         videoPlayer.showsPlaybackControls = true
         videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
     }
+    
     private func configureTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.backgroundColor = .secondarySystemBackground
         tableView.register(IngredientCell.self, forCellReuseIdentifier: IngredientCell.identifier)
+        tableView.register(InstructionCell.self, forCellReuseIdentifier: InstructionCell.identifier)
         tableView.alwaysBounceVertical = false
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionHeaderTopPadding = 0
@@ -97,16 +121,31 @@ class RecipeInfoVC: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, component in
-            let cell = tableView.dequeueReusableCell(withIdentifier: IngredientCell.identifier, for: indexPath) as! IngredientCell
-            cell.set(component: component)
-            return cell
+        dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, indexPath, item in
+            if let component = item as? Component {
+                let cell = tableView.dequeueReusableCell(withIdentifier: IngredientCell.identifier, for: indexPath) as! IngredientCell
+                cell.set(component: component)
+                return cell
+            } else if let instruction = item as? Instruction {
+                let cell = tableView.dequeueReusableCell(withIdentifier: InstructionCell.identifier, for: indexPath) as! InstructionCell
+                cell.set(instruction: instruction)
+                return cell
+            } else {
+                fatalError("Unknown Item Identifier")
+            }
         })
+    }
+    
+    private func configureNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+        let button = RPBarButton(image: SFSymbols.heart)
+        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        let saveButton = UIBarButtonItem(customView: button)
+        navigationItem.rightBarButtonItem = saveButton
     }
     
     private func configureVC() {
         view.backgroundColor = .systemBackground
-        navigationItem.largeTitleDisplayMode = .never
         addChild(videoPlayer)
     }
     
@@ -115,12 +154,15 @@ class RecipeInfoVC: UIViewController {
         let width: CGFloat = ScreenSize.width
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    @objc private func saveButtonTapped() {
+        addToFavorites()
     }
 }
 
@@ -140,16 +182,21 @@ extension RecipeInfoVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let padding: CGFloat = 16
-        let componentLabel = RPTitleLabel(textAlignment: .left, fontSize: 14)
-        componentLabel.text = ingredients[section].name?.uppercased() ?? "INGREDIENTS"
+        let sectionLabel = RPTitleLabel(textAlignment: .left, fontSize: 14)
+        
+        if section < ingredients.count {
+            sectionLabel.text = ingredients[section].name?.uppercased() ?? "INGREDIENTS"
+        } else {
+            sectionLabel.text = "PREPARATION"
+        }
         let headerView = UIView()
         switch section {
         case 0:
-            headerView.addSubviews(titleLabel, videoPlayer.view, componentLabel)
+            headerView.addSubviews(titleLabel, videoPlayer.view, sectionLabel)
             NSLayoutConstraint.activate([
                 titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
                 titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
-                titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+                titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -padding),
                 titleLabel.heightAnchor.constraint(equalToConstant: 80),
                 
                 videoPlayer.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
@@ -157,19 +204,19 @@ extension RecipeInfoVC: UITableViewDelegate {
                 videoPlayer.view.widthAnchor.constraint(equalTo: headerView.widthAnchor),
                 videoPlayer.view.heightAnchor.constraint(equalTo: headerView.widthAnchor),
                 
-                componentLabel.topAnchor.constraint(equalTo: videoPlayer.view.bottomAnchor, constant: 6),
-                componentLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
-                componentLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-                componentLabel.heightAnchor.constraint(equalToConstant: 30)
+                sectionLabel.topAnchor.constraint(equalTo: videoPlayer.view.bottomAnchor, constant: 6),
+                sectionLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+                sectionLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+                sectionLabel.heightAnchor.constraint(equalToConstant: 30)
             ])
             return headerView
         default:
-            headerView.addSubviews(componentLabel)
+            headerView.addSubviews(sectionLabel)
             NSLayoutConstraint.activate([
-                componentLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 6),
-                componentLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
-                componentLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-                componentLabel.heightAnchor.constraint(equalToConstant: 30)
+                sectionLabel.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 6),
+                sectionLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
+                sectionLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
+                sectionLabel.heightAnchor.constraint(equalToConstant: 30)
             ])
             return headerView
         }
