@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RPBarButton: UIButton {
+class RPImageButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         configure()

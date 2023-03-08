@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		503DB8F529B571D6002E664F /* RPBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F429B571D6002E664F /* RPBarButton.swift */; };
+		50399CC429B7EBDA00199D92 /* RPTimeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399CC329B7EBDA00199D92 /* RPTimeLabel.swift */; };
+		50399CC629B7EE4F00199D92 /* RPTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399CC529B7EE4F00199D92 /* RPTimeView.swift */; };
+		503DB8F529B571D6002E664F /* RPImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F429B571D6002E664F /* RPImageButton.swift */; };
 		503DB8F729B59C50002E664F /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F629B59C50002E664F /* Measurement.swift */; };
 		503DB8F929B59C96002E664F /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F829B59C96002E664F /* Result.swift */; };
 		503DB8FB29B59CB3002E664F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8FA29B59CB3002E664F /* Item.swift */; };
@@ -25,7 +27,7 @@
 		50F4CE8E2924793E00AAFED2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F4CE8D2924793E00AAFED2 /* Assets.xcassets */; };
 		50F4CE912924793E00AAFED2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50F4CE8F2924793E00AAFED2 /* LaunchScreen.storyboard */; };
 		50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE98292A36A600AAFED2 /* RPTabBarController.swift */; };
-		50F4CE9B292A36CD00AAFED2 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE9A292A36CD00AAFED2 /* SearchVC.swift */; };
+		50F4CE9B292A36CD00AAFED2 /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE9A292A36CD00AAFED2 /* SwipeVC.swift */; };
 		50F4CE9D292A36DB00AAFED2 /* BrowseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE9C292A36DB00AAFED2 /* BrowseVC.swift */; };
 		50F4CE9F292A36E200AAFED2 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE9E292A36E200AAFED2 /* FavoritesVC.swift */; };
 		50F4CEA1292AFAA200AAFED2 /* RPAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CEA0292AFAA200AAFED2 /* RPAlertVC.swift */; };
@@ -43,7 +45,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		503DB8F429B571D6002E664F /* RPBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPBarButton.swift; sourceTree = "<group>"; };
+		50399CC329B7EBDA00199D92 /* RPTimeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPTimeLabel.swift; sourceTree = "<group>"; };
+		50399CC529B7EE4F00199D92 /* RPTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPTimeView.swift; sourceTree = "<group>"; };
+		503DB8F429B571D6002E664F /* RPImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPImageButton.swift; sourceTree = "<group>"; };
 		503DB8F629B59C50002E664F /* Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		503DB8F829B59C96002E664F /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		503DB8FA29B59CB3002E664F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
@@ -63,7 +67,7 @@
 		50F4CE902924793E00AAFED2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50F4CE922924793E00AAFED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50F4CE98292A36A600AAFED2 /* RPTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPTabBarController.swift; sourceTree = "<group>"; };
-		50F4CE9A292A36CD00AAFED2 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		50F4CE9A292A36CD00AAFED2 /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
 		50F4CE9C292A36DB00AAFED2 /* BrowseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseVC.swift; sourceTree = "<group>"; };
 		50F4CE9E292A36E200AAFED2 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		50F4CEA0292AFAA200AAFED2 /* RPAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPAlertVC.swift; sourceTree = "<group>"; };
@@ -147,7 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				50F4CE9C292A36DB00AAFED2 /* BrowseVC.swift */,
-				50F4CE9A292A36CD00AAFED2 /* SearchVC.swift */,
+				50F4CE9A292A36CD00AAFED2 /* SwipeVC.swift */,
 				50F4CE9E292A36E200AAFED2 /* FavoritesVC.swift */,
 				50E303F5298B23970002C90C /* RecipeInfoVC.swift */,
 			);
@@ -182,6 +186,7 @@
 				50F4CEA6292AFB5A00AAFED2 /* RPTitleLabel.swift */,
 				50A432BD29A2B58700388920 /* RPRecipeLabel.swift */,
 				50F4CEA8292AFB6600AAFED2 /* RPBodyLabel.swift */,
+				50399CC329B7EBDA00199D92 /* RPTimeLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -190,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				50F4CEA4292AFB2A00AAFED2 /* RPButton.swift */,
-				503DB8F429B571D6002E664F /* RPBarButton.swift */,
+				503DB8F429B571D6002E664F /* RPImageButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 			children = (
 				50F4CEA2292AFAEA00AAFED2 /* RPAlertContainerView.swift */,
 				50E303F32989ABC70002C90C /* RPSectionHeader.swift */,
+				50399CC529B7EE4F00199D92 /* RPTimeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -322,7 +328,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				50F4CE9B292A36CD00AAFED2 /* SearchVC.swift in Sources */,
+				50F4CE9B292A36CD00AAFED2 /* SwipeVC.swift in Sources */,
 				50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */,
 				50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */,
 				50A432BE29A2B58700388920 /* RPRecipeLabel.swift in Sources */,
@@ -345,13 +351,15 @@
 				503DB8F929B59C96002E664F /* Result.swift in Sources */,
 				50F4CEB9292B008B00AAFED2 /* NetworkManager.swift in Sources */,
 				50F4CEB6292AFFC800AAFED2 /* Recipe.swift in Sources */,
+				50399CC629B7EE4F00199D92 /* RPTimeView.swift in Sources */,
 				50F4CEC3292E026300AAFED2 /* RPRecipeImageView.swift in Sources */,
 				50F4CEA9292AFB6600AAFED2 /* RPBodyLabel.swift in Sources */,
 				50F4CEBD292B04A500AAFED2 /* UIViewController+Ext.swift in Sources */,
 				503DB8F729B59C50002E664F /* Measurement.swift in Sources */,
 				50E303F2298999030002C90C /* RPConstants.swift in Sources */,
 				50F4CE872924793D00AAFED2 /* SceneDelegate.swift in Sources */,
-				503DB8F529B571D6002E664F /* RPBarButton.swift in Sources */,
+				50399CC429B7EBDA00199D92 /* RPTimeLabel.swift in Sources */,
+				503DB8F529B571D6002E664F /* RPImageButton.swift in Sources */,
 				503DB8FB29B59CB3002E664F /* Item.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

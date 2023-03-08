@@ -118,6 +118,7 @@ class RecipeInfoVC: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.sectionHeaderTopPadding = 0
         tableView.sectionFooterHeight = 0
+        tableView.separatorStyle = .none
     }
     
     private func configureDataSource() {
@@ -138,7 +139,7 @@ class RecipeInfoVC: UIViewController {
     
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
-        let button = RPBarButton(image: SFSymbols.heart)
+        let button = RPImageButton(image: SFSymbols.heart)
         button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         let saveButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = saveButton
@@ -168,7 +169,7 @@ class RecipeInfoVC: UIViewController {
 
 extension RecipeInfoVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

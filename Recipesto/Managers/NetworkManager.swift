@@ -25,6 +25,28 @@ class NetworkManager {
         decoder.dateDecodingStrategy = .iso8601
     }
     
+    func getRandomRecipe(page: Int, isVegetarian: Bool, tags: String) async throws -> ListReponse {
+        let endpoint = baseURL + "recipes/list?from=0&size=20&tags=\(tags)"
+        
+        guard let url = URL(string: endpoint) else { throw RPError.unableToComplete }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw RPError.invalidResponse }
+        
+        do {
+            return try decoder.decode(ListReponse.self, from: data)
+        } catch {
+            print(error)
+            throw RPError.invalidData
+        }
+        
+    }
+    
     func getFeaturedRecipes(page: Int, isVegetarian: Bool) async throws -> [String: [Result]] {
         
         let endpoint = baseURL + "feeds/list?size=\(size)&timezone=%2B0500&vegetarian=false&from=\(page)"

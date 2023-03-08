@@ -28,7 +28,7 @@ class RPTitleLabel: UILabel {
         textColor = .label
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.7
-        numberOfLines = 3
+        numberOfLines = 0
         lineBreakMode = .byWordWrapping
         translatesAutoresizingMaskIntoConstraints = false
     }

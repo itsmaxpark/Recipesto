@@ -74,10 +74,10 @@ class IngredientCell: UITableViewCell {
         let padding: CGFloat = 16
         
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
         ])
     }
 }

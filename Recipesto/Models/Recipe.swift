@@ -8,6 +8,11 @@
 import Foundation
 
 
+struct ListReponse: Codable, Hashable {
+    let count: Int
+    let results: [Item]
+}
+
 // MARK: - Recipe
 struct Recipe: Codable, Hashable {
     let credits: [Brand]?

@@ -24,7 +24,7 @@ class RPTabBarController: UITabBarController {
     }
     
     func createSearchNC() -> UINavigationController {
-        let searchVC = SearchVC()
+        let searchVC = SwipeVC()
         searchVC.title = "Search"
         searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
         
