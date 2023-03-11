@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - Result
+/// 52 keys in api
 struct Result: Codable, Hashable, Identifiable {
     var id = UUID()
     

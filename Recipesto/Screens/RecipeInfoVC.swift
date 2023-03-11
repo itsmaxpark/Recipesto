@@ -97,7 +97,7 @@ class RecipeInfoVC: UIViewController {
     }
     
     private func addToFavorites() {
-        
+        #warning("TODO: persistance manager")
     }
     
     private func configureVideoPlayer() {
@@ -139,7 +139,7 @@ class RecipeInfoVC: UIViewController {
     
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
-        let button = RPImageButton(image: SFSymbols.heart)
+        let button = RPImageButton(color: .systemGreen, image: SFSymbols.heart)
         button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         let saveButton = UIBarButtonItem(customView: button)
         navigationItem.rightBarButtonItem = saveButton

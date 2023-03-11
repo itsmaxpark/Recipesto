@@ -7,13 +7,8 @@
 
 import Foundation
 
-
-struct ListReponse: Codable, Hashable {
-    let count: Int
-    let results: [Item]
-}
-
 // MARK: - Recipe
+/// 55 keys in api
 struct Recipe: Codable, Hashable {
     let credits: [Brand]?
     let instructions: [Instruction]?
@@ -77,3 +72,27 @@ struct Nutrition: Codable, Hashable {
     let carbohydrates, fiber: Int?
     let protein, fat, calories, sugar: Int?
 }
+
+//// MARK: - PurpleRecipe
+//struct PurpleRecipe: Hashable {
+//}
+//
+//// MARK: - FluffyRecipe
+///// shoppable carosel
+///// 6 items: [ItemElement] with 28 keys
+///// recipe: FluffyRecipe
+//struct FluffyRecipe: Hashable {
+//    var recipeID: Int
+//    var index: Index
+//    var type: TypeEnum
+//    var opType: OpType
+//}
+
+//// MARK: - PurpleItem
+//struct PurpleItem: Hashable {
+//    var analyticsMetadata: AnalyticsMetadata?
+//}
+//
+//// MARK: - ItemElement
+//struct ItemElement: Hashable {
+//}

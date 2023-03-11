@@ -13,7 +13,7 @@ class RPTimeView: UIView {
     var cookView: RPTimeLabel
     var prepView: RPTimeLabel
     
-    required init(totalTime: Int, cookTime: Int, prepTime: Int) {
+    required init(totalTime: Int = 0, cookTime: Int = 0, prepTime: Int = 0) {
         totalView = RPTimeLabel(type: .total, time: totalTime)
         cookView = RPTimeLabel(type: .cook, time: cookTime)
         prepView = RPTimeLabel(type: .prep, time: prepTime)
@@ -26,11 +26,14 @@ class RPTimeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func set(totalTime: Int, cookTime: Int, prepTime: Int) {
+        totalView.timeLabel.text = "\(totalTime)"
+        cookView.timeLabel.text = "\(cookTime)"
+        prepView.timeLabel.text = "\(prepTime)"
+    }
+    
     private func configureView() {
-        backgroundColor = .systemBackground
-        layer.cornerRadius = 16
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.white.cgColor
+        backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -50,6 +53,4 @@ class RPTimeView: UIView {
         ])
         
     }
-    
-    
 }

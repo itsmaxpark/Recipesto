@@ -25,7 +25,49 @@ class NetworkManager {
         decoder.dateDecodingStrategy = .iso8601
     }
     
-    func getRandomRecipe(page: Int, isVegetarian: Bool, tags: String) async throws -> ListReponse {
+    func getAutoCompleteSuggestion(text: String) async throws -> [String: [AutoCompleteResult]] {
+        let endpoint = baseURL + "recipes/auto-complete?prefix=\(text)"
+        
+        guard let url = URL(string: endpoint) else { throw RPError.unableToComplete }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw RPError.invalidResponse }
+        
+        do {
+            return try decoder.decode([String: [AutoCompleteResult]].self, from: data)
+        } catch {
+            print(error)
+            throw RPError.invalidData
+        }
+    }
+    
+    func getSearchRecipe(page: Int, isVegetarian: Bool, tags: String, searchText: String) async throws -> RecipeResult {
+        let endpoint = baseURL + "recipes/list?from=0&size=20&tags=\(tags)&q=\(searchText)"
+        
+        guard let url = URL(string: endpoint) else { throw RPError.unableToComplete }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.allHTTPHeaderFields = headers
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw RPError.invalidResponse }
+        
+        do {
+            return try decoder.decode(RecipeResult.self, from: data)
+        } catch {
+            print(error)
+            throw RPError.invalidData
+        }
+    }
+    
+    func getRandomRecipe(page: Int, isVegetarian: Bool, tags: String) async throws -> RecipeResult {
         let endpoint = baseURL + "recipes/list?from=0&size=20&tags=\(tags)"
         
         guard let url = URL(string: endpoint) else { throw RPError.unableToComplete }
@@ -39,12 +81,11 @@ class NetworkManager {
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw RPError.invalidResponse }
         
         do {
-            return try decoder.decode(ListReponse.self, from: data)
+            return try decoder.decode(RecipeResult.self, from: data)
         } catch {
             print(error)
             throw RPError.invalidData
         }
-        
     }
     
     func getFeaturedRecipes(page: Int, isVegetarian: Bool) async throws -> [String: [Result]] {

@@ -9,6 +9,7 @@ import Foundation
 
 // MARK: - Item
 struct Item: Codable, Hashable {
+    
     let credits: [Brand]
     let recipes: [Recipe]?
     let tags: [Tag]
@@ -16,14 +17,9 @@ struct Item: Codable, Hashable {
     let userRatings: UserRatings?
     let sections: [Section]? // IngredientSection
     let compilations: [Compilation]?
-    let keywords: String?
-    let thumbnailUrl: String?
-    let videoUrl: String?
+    let keywords, thumbnailUrl, videoUrl: String?
+    let totalTimeMinutes, prepTimeMinutes, cookTimeMinutes, numServings: Int?
     let name: String
     let id: Int
-    let prepTimeMinutes: Int?
-    let numServings: Int?
-    let totalTimeMinutes: Int?
-    let cookTimeMinutes: Int?
 
 }

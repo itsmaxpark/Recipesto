@@ -9,51 +9,56 @@ import UIKit
 
 class SwipeVC: UIViewController {
     
+    var recipe: Item?
+    
     var scrollView = UIScrollView(frame: .zero)
+    var containerView = UIView(frame: .zero)
     var nameLabel = RPTitleLabel(textAlignment: .left, fontSize: 28)
     var recipeCard = RPRecipeImageView(frame: .zero)
-    var timeView: RPTimeView!
-    var saveButton = RPImageButton(image: SFSymbols.filledHeart)
-    var discardButton = RPImageButton(image: SFSymbols.xMark)
+    var timeView = RPTimeView()
+    var saveButton: LSImageButton = {
+        let config = UIImage.SymbolConfiguration(pointSize: 50)
+        let button = LSImageButton(color: .systemGreen, systemImageName: "heart.fill", configuration: config)
+        return button
+    }()
+    var discardButton: LSImageButton = {
+        let config = UIImage.SymbolConfiguration(pointSize: 50)
+        let button = LSImageButton(color: .systemRed, systemImageName: "x.circle.fill", configuration: config)
+        return button
+    }()
     
-    var recipe: Item?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVC()
+        configureButtons()
+        getRecipe()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showNewRecipe()
+//        if let timeView {
+//            timeView.removeFromSuperview()
+//        }
     }
     
-    private func showNewRecipe() {
-        // retrieve random recipe
-        getRecipe()
-        guard let recipe = recipe else { return }
-        // set name label
-        nameLabel.text = recipe.name
-        // set recipe card
-        guard let url = recipe.thumbnailUrl else { return }
-        recipeCard.downloadImage(fromURL: url)
-        // set time view
-        let totalTime = recipe.totalTimeMinutes ?? 0
-        let cookTime = recipe.cookTimeMinutes ?? 0
-        let prepTime = recipe.prepTimeMinutes ?? 0
-        timeView = RPTimeView(totalTime: totalTime, cookTime: cookTime, prepTime: prepTime)
-        configureUI()
-    }
-    
+    /// Receives a random recipe from the network call to be used for display
+    /// On success, updates the UI with the corresponding recipe
     private func getRecipe() {
+        
         showLoadingView()
+        
         Task {
-            let recipesResponse: ListReponse
+            let recipesResponse: RecipeResult
             
             do {
                 recipesResponse = try await NetworkManager.shared.getRandomRecipe(page: 0, isVegetarian: false, tags: "")
                 let recipes = recipesResponse.results
-                recipe = recipes.randomElement()!
+                guard let recipe = recipes.randomElement() else { return }
+                self.recipe = recipe
+                updateUI(with: recipe)
+                configureUI()
                 dismissLoadingView()
                 
             } catch {
@@ -67,51 +72,45 @@ class SwipeVC: UIViewController {
         }
     }
     
+    /// Set the UI with the recipe from a network call
+    /// - Parameter with: Item - the recipe to be shown
+    private func updateUI(with: Item) {
+        guard let recipe = recipe else { return }
+        // set name label
+        nameLabel.text = recipe.name
+        // set recipe card
+        guard let url = recipe.thumbnailUrl else { return }
+        recipeCard.downloadImage(fromURL: url)
+        // set time view
+        let totalTime = recipe.totalTimeMinutes ?? 0
+        let cookTime = recipe.cookTimeMinutes ?? 0
+        let prepTime = recipe.prepTimeMinutes ?? 0
+        timeView.set(totalTime: totalTime, cookTime: cookTime, prepTime: prepTime)
+    }
+    
+    private func configureButtons() {
+        saveButton.addTarget(self, action: #selector(didTapSaveButton), for: .touchUpInside)
+        discardButton.addTarget(self, action: #selector(didTapDiscardButton), for: .touchUpInside)
+    }
+    
     private func configureVC() {
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .secondarySystemBackground
         scrollView.delegate = self
     }
     
-    private func configureUI() {
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(scrollView)
-        scrollView.addSubviews(nameLabel, recipeCard, timeView, saveButton, discardButton)
-        
-        let padding: CGFloat = 16
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            nameLabel.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: padding),
-            nameLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -padding),
-            nameLabel.heightAnchor.constraint(equalToConstant: 80),
-            
-            recipeCard.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
-            recipeCard.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: padding),
-            recipeCard.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -padding),
-            recipeCard.heightAnchor.constraint(equalToConstant: 200),
-            
-            timeView.topAnchor.constraint(equalTo: recipeCard.bottomAnchor, constant: padding),
-            timeView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: padding),
-            timeView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -padding),
-            timeView.heightAnchor.constraint(equalToConstant: 40),
-            
-            discardButton.topAnchor.constraint(equalTo: timeView.bottomAnchor, constant: padding),
-            discardButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: padding),
-            discardButton.widthAnchor.constraint(equalToConstant: 40),
-            discardButton.heightAnchor.constraint(equalToConstant: 40),
-            
-            saveButton.topAnchor.constraint(equalTo: timeView.bottomAnchor, constant: padding),
-            saveButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -padding),
-            saveButton.widthAnchor.constraint(equalToConstant: 40),
-            saveButton.heightAnchor.constraint(equalToConstant: 40),
-        ])
+    @objc private func didTapSaveButton() {
+        // TODO - Persistance manager with Userdefaults
+        // add recipe to favorites
+        // keep track of recipes that have been shown already
+        // prepare to show new recipe
+        getRecipe()
     }
     
-    
+    @objc private func didTapDiscardButton() {
+        // keep track of recipes that have been shown already
+        // prepare to show new recipe
+        getRecipe()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -129,7 +128,61 @@ class SwipeVC: UIViewController {
 
 }
 
+// MARK: - Scroll View Delegate
 extension SwipeVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    }
+}
+
+// MARK: - Constraints
+extension SwipeVC {
+    
+    private func configureUI() {
+
+        let padding: CGFloat = 16
+        
+        view.addSubview(scrollView)
+        view.useConstraints(scrollView, containerView)
+        scrollView.addSubview(containerView)
+        containerView.addSubviews(nameLabel, recipeCard, timeView, saveButton, discardButton)
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            containerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            containerView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            containerView.heightAnchor.constraint(equalTo: scrollView.frameLayoutGuide.heightAnchor),
+            
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
+            nameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            nameLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            nameLabel.heightAnchor.constraint(equalToConstant: 80),
+            
+            recipeCard.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            recipeCard.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            recipeCard.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            recipeCard.heightAnchor.constraint(equalTo: recipeCard.widthAnchor),
+            
+            timeView.topAnchor.constraint(equalTo: recipeCard.bottomAnchor, constant: padding),
+            timeView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            timeView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            timeView.heightAnchor.constraint(equalToConstant: 40),
+            
+            discardButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0),
+            discardButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: padding),
+            discardButton.widthAnchor.constraint(equalToConstant: 80),
+            discardButton.heightAnchor.constraint(equalToConstant: 80),
+            
+            saveButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0),
+            saveButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -padding),
+            saveButton.widthAnchor.constraint(equalToConstant: 80),
+            saveButton.heightAnchor.constraint(equalToConstant: 80),
+        ])
     }
 }
