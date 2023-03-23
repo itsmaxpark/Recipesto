@@ -29,6 +29,6 @@ class RPRecipeImageView: UIImageView {
     }
     
     func downloadImage(fromURL url: String) {
-        Task { image = await NetworkManager.shared.downloadImage(from: url) ?? placeholderImage }
+        Task { image = await MockNetworkManager.shared.downloadImage(from: url) ?? placeholderImage }
     }
 }

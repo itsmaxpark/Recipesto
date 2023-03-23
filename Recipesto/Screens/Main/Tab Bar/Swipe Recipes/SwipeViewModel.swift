@@ -23,6 +23,8 @@ class SwipeViewModel {
     
     let output: PassthroughSubject<Output, Never> = .init()
     var cancellables = Set<AnyCancellable>()
+    
+    let session = MockNetworkManager.shared
 
     init() {}
     
@@ -38,7 +40,7 @@ class SwipeViewModel {
     
     func handleGetRecipe() {
         output.send(.toggleButtons(isEnabled: false))
-        NetworkManager.shared.getRandomRecipe().sink { [weak self] completion in
+        session.getRandomRecipe().sink { [weak self] completion in
           self?.output.send(.toggleButtons(isEnabled: true))
           if case .failure(let error) = completion {
               self?.output.send(.fetchRecipeDidFail(error: error))

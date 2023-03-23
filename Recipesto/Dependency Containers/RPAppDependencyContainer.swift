@@ -27,7 +27,7 @@ class RPAppDependencyContainer {
     }
     
     func makeBrowseVC() -> BrowseVC {
-        return BrowseVC()
+        return BrowseVC(viewModel: BrowseViewModel())
     }
     
     func makeSwipeVC() -> SwipeVC {

@@ -29,6 +29,8 @@
 		50399CFB29CC156400199D92 /* NetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399CFA29CC156400199D92 /* NetworkSession.swift */; };
 		50399CFD29CC170300199D92 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399CFC29CC170300199D92 /* MockNetworkManager.swift */; };
 		50399CFF29CC208600199D92 /* MockBrowseData.json in Resources */ = {isa = PBXBuildFile; fileRef = 50399CFE29CC208600199D92 /* MockBrowseData.json */; };
+		50399D0129CCC7D500199D92 /* BrowseRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0029CCC7D500199D92 /* BrowseRootView.swift */; };
+		50399D0529CCCC0E00199D92 /* MockSearchData.json in Resources */ = {isa = PBXBuildFile; fileRef = 50399D0429CCCC0E00199D92 /* MockSearchData.json */; };
 		503DB8F529B571D6002E664F /* RPImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F429B571D6002E664F /* RPImageButton.swift */; };
 		503DB8F729B59C50002E664F /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F629B59C50002E664F /* Measurement.swift */; };
 		503DB8F929B59C96002E664F /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F829B59C96002E664F /* Result.swift */; };
@@ -85,6 +87,8 @@
 		50399CFA29CC156400199D92 /* NetworkSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSession.swift; sourceTree = "<group>"; };
 		50399CFC29CC170300199D92 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		50399CFE29CC208600199D92 /* MockBrowseData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockBrowseData.json; sourceTree = "<group>"; };
+		50399D0029CCC7D500199D92 /* BrowseRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseRootView.swift; sourceTree = "<group>"; };
+		50399D0429CCCC0E00199D92 /* MockSearchData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockSearchData.json; sourceTree = "<group>"; };
 		503DB8F429B571D6002E664F /* RPImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPImageButton.swift; sourceTree = "<group>"; };
 		503DB8F629B59C50002E664F /* Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		503DB8F829B59C96002E664F /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 				50E303F5298B23970002C90C /* RecipeInfoVC.swift */,
 				50399CD729CB911400199D92 /* BrowseViewModel.swift */,
 				50F4CE9C292A36DB00AAFED2 /* BrowseVC.swift */,
+				50399D0029CCC7D500199D92 /* BrowseRootView.swift */,
 			);
 			path = "Browse Recipes";
 			sourceTree = "<group>";
@@ -355,6 +360,7 @@
 				50399CFC29CC170300199D92 /* MockNetworkManager.swift */,
 				50399CF629CC139A00199D92 /* MockSwipeData.json */,
 				50399CFE29CC208600199D92 /* MockBrowseData.json */,
+				50399D0429CCCC0E00199D92 /* MockSearchData.json */,
 				50399CFA29CC156400199D92 /* NetworkSession.swift */,
 			);
 			path = Managers;
@@ -445,6 +451,7 @@
 				50F4CE912924793E00AAFED2 /* LaunchScreen.storyboard in Resources */,
 				50399CFF29CC208600199D92 /* MockBrowseData.json in Resources */,
 				50F4CE8E2924793E00AAFED2 /* Assets.xcassets in Resources */,
+				50399D0529CCCC0E00199D92 /* MockSearchData.json in Resources */,
 				50399CF729CC139A00199D92 /* MockSwipeData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +495,7 @@
 				503DB8FD29B59CDA002E664F /* Instruction.swift in Sources */,
 				503DB8F929B59C96002E664F /* Result.swift in Sources */,
 				50399CE229CB99C500199D92 /* SwipeRootView.swift in Sources */,
+				50399D0129CCC7D500199D92 /* BrowseRootView.swift in Sources */,
 				50399CDA29CB937E00199D92 /* SwipeViewModel.swift in Sources */,
 				50F4CEB9292B008B00AAFED2 /* NetworkManager.swift in Sources */,
 				50F4CEB6292AFFC800AAFED2 /* Recipe.swift in Sources */,
