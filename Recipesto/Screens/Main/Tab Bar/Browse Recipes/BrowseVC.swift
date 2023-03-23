@@ -58,14 +58,11 @@ class BrowseVC: UIViewController {
     
     private func configureSearchController() {
         suggestedSearchController = SuggestedSearchController()
-        searchController = UISearchController(searchResultsController: nil)
+        searchController = RPSearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
-        searchController.searchBar.placeholder = "Search for a recipe"
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.autocapitalizationType = .none
-        searchController.searchBar.returnKeyType = .done
         searchController.delegate = self
         searchController.searchBar.delegate = self
+        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
@@ -131,14 +128,15 @@ class BrowseVC: UIViewController {
     }
     
     func configureDataSource() {
+        // Configure the cell based on the recipe
         dataSource = UICollectionViewDiffableDataSource(collectionView: collectionView, cellProvider: { collectionView, indexPath, recipe in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecipeCell.identifier, for: indexPath) as! RecipeCell
             cell.set(recipe: recipe)
             return cell
         })
         
+        // Use RPSectionHeader as supplementary view for collectionView and set title
         dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-            print(indexPath)
             guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RPSectionHeader.reuseIdentifier, for: indexPath) as? RPSectionHeader
             else { fatalError() }
             guard let firstRecipe = self?.dataSource?.itemIdentifier(for: indexPath) else { return UICollectionReusableView() }
@@ -218,7 +216,9 @@ class BrowseVC: UIViewController {
                 snapshot.appendItems(items, toSection: section)
             }
         }
-        dataSource?.apply(snapshot)
+        DispatchQueue.main.async {
+            self.dataSource?.apply(snapshot, animatingDifferences: true)
+        }
     }
 }
 
@@ -236,10 +236,16 @@ extension BrowseVC: UICollectionViewDelegate {
             sectionRecipes = recipes
         }
         let recipe = sectionRecipes[indexPath.item]
-        
-        let destVC = RecipeInfoVC()
-        destVC.set(recipe: recipe)
-        navigationController?.pushViewController(destVC, animated: true)
+        guard let recipes = recipe.recipes else { return }
+        if recipes.count > 1 {
+            let destVC = MultipleRecipeInfoVC()
+            destVC.set(item: recipe)
+            navigationController?.pushViewController(destVC, animated: true)
+        } else {
+            let destVC = RecipeInfoVC()
+            destVC.set(recipe: recipe)
+            navigationController?.pushViewController(destVC, animated: true)
+        }
     }
 }
 
@@ -249,11 +255,20 @@ extension BrowseVC: UISearchControllerDelegate {
         searchController.showsSearchResultsController = true
         
     }
+    
 }
 
 // MARK: - Search Bar Delegate
 extension BrowseVC: UISearchBarDelegate {
     
+    /// Tells the delegate that the search bar cancel button was tapped
+    /// Show featured receipes on button tap instead of search results
+    /// - Parameter searchBar: search bar of search controller
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        getFeaturedRecipes()
+//        configureDataSource()
+//        reloadData()
+    }
 }
 
 // MARK: - Search Results Updating Delegate

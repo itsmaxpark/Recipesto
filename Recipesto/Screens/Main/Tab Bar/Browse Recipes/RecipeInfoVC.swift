@@ -32,7 +32,6 @@ class RecipeInfoVC: UIViewController {
     var tableView = UITableView(frame: .zero, style: .grouped)
     var dataSource: UITableViewDiffableDataSource<RecipeSection, AnyHashable>?
     
-    let scrollView = UIScrollView()
     var headerView = UIView(frame: .zero)
     
     var width: CGFloat = ScreenSize.width
