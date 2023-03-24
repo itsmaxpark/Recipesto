@@ -75,14 +75,12 @@ class SwipeRootView: NiblessView {
         // add recipe to favorites
         // keep track of recipes that have been shown already
         // prepare to show new recipe
-        print("DidTapSaveButton")
         input.send(.didSwipeAction)
     }
     
     @objc private func didTapDiscardButton() {
         // keep track of recipes that have been shown already
         // prepare to show new recipe
-        print("DidTapDiscardButton")
         input.send(.didSwipeAction)
     }
     

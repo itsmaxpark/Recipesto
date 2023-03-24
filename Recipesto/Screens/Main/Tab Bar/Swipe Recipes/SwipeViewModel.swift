@@ -46,7 +46,6 @@ class SwipeViewModel {
               self?.output.send(.fetchRecipeDidFail(error: error))
           }
         } receiveValue: { [weak self] recipes in
-//            print(recipes)
             guard let recipe = recipes.results.randomElement() else {
                 self?.output.send(.fetchRecipeDidFail(error: RPError.invalidData))
                 return 

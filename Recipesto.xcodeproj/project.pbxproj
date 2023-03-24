@@ -31,20 +31,29 @@
 		50399CFF29CC208600199D92 /* MockBrowseData.json in Resources */ = {isa = PBXBuildFile; fileRef = 50399CFE29CC208600199D92 /* MockBrowseData.json */; };
 		50399D0129CCC7D500199D92 /* BrowseRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0029CCC7D500199D92 /* BrowseRootView.swift */; };
 		50399D0529CCCC0E00199D92 /* MockSearchData.json in Resources */ = {isa = PBXBuildFile; fileRef = 50399D0429CCCC0E00199D92 /* MockSearchData.json */; };
+		50399D0829CCEA0400199D92 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0729CCEA0400199D92 /* Coordinator.swift */; };
+		50399D0A29CCEA1900199D92 /* RPAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0929CCEA1900199D92 /* RPAppCoordinator.swift */; };
+		50399D0C29CCF3AD00199D92 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0B29CCF3AD00199D92 /* TabBarCoordinator.swift */; };
+		50399D0E29CCF3B400199D92 /* BrowseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0D29CCF3B400199D92 /* BrowseCoordinator.swift */; };
+		50399D1029CCF3BD00199D92 /* SwipeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D0F29CCF3BD00199D92 /* SwipeCoordinator.swift */; };
+		50399D1229CCF3C500199D92 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D1129CCF3C500199D92 /* FavoritesCoordinator.swift */; };
+		50399D1429CCF48E00199D92 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D1329CCF48E00199D92 /* NavigationCoordinator.swift */; };
+		50399D1729CE4CF600199D92 /* RecipeInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D1629CE4CF600199D92 /* RecipeInfoViewModel.swift */; };
+		50399D1929CE4D4100199D92 /* RecipeInfoRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50399D1829CE4D4100199D92 /* RecipeInfoRootView.swift */; };
 		503DB8F529B571D6002E664F /* RPImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F429B571D6002E664F /* RPImageButton.swift */; };
 		503DB8F729B59C50002E664F /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F629B59C50002E664F /* Measurement.swift */; };
 		503DB8F929B59C96002E664F /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8F829B59C96002E664F /* Result.swift */; };
 		503DB8FB29B59CB3002E664F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8FA29B59CB3002E664F /* Item.swift */; };
 		503DB8FD29B59CDA002E664F /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8FC29B59CDA002E664F /* Instruction.swift */; };
 		503DB8FF29B5A09B002E664F /* InstructionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503DB8FE29B5A09B002E664F /* InstructionCell.swift */; };
+		5080986829CE634C0071588B /* RPVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080986729CE634C0071588B /* RPVideoPlayerView.swift */; };
 		50A432BE29A2B58700388920 /* RPRecipeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A432BD29A2B58700388920 /* RPRecipeLabel.swift */; };
-		50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303ED2981F2C80002C90C /* RPFlowLayout.swift */; };
+		50E303EE2981F2C80002C90C /* RPCompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303ED2981F2C80002C90C /* RPCompositionalLayout.swift */; };
 		50E303F2298999030002C90C /* RPConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303F1298999030002C90C /* RPConstants.swift */; };
 		50E303F42989ABC70002C90C /* RPSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303F32989ABC70002C90C /* RPSectionHeader.swift */; };
 		50E303F6298B23970002C90C /* RecipeInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303F5298B23970002C90C /* RecipeInfoVC.swift */; };
 		50E303F8299083290002C90C /* IngredientCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E303F7299083290002C90C /* IngredientCell.swift */; };
 		50F4CE852924793D00AAFED2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE842924793D00AAFED2 /* AppDelegate.swift */; };
-		50F4CE872924793D00AAFED2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE862924793D00AAFED2 /* SceneDelegate.swift */; };
 		50F4CE8E2924793E00AAFED2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F4CE8D2924793E00AAFED2 /* Assets.xcassets */; };
 		50F4CE912924793E00AAFED2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50F4CE8F2924793E00AAFED2 /* LaunchScreen.storyboard */; };
 		50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F4CE98292A36A600AAFED2 /* RPTabBarController.swift */; };
@@ -89,21 +98,30 @@
 		50399CFE29CC208600199D92 /* MockBrowseData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockBrowseData.json; sourceTree = "<group>"; };
 		50399D0029CCC7D500199D92 /* BrowseRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseRootView.swift; sourceTree = "<group>"; };
 		50399D0429CCCC0E00199D92 /* MockSearchData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockSearchData.json; sourceTree = "<group>"; };
+		50399D0729CCEA0400199D92 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		50399D0929CCEA1900199D92 /* RPAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPAppCoordinator.swift; sourceTree = "<group>"; };
+		50399D0B29CCF3AD00199D92 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		50399D0D29CCF3B400199D92 /* BrowseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseCoordinator.swift; sourceTree = "<group>"; };
+		50399D0F29CCF3BD00199D92 /* SwipeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCoordinator.swift; sourceTree = "<group>"; };
+		50399D1129CCF3C500199D92 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
+		50399D1329CCF48E00199D92 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		50399D1629CE4CF600199D92 /* RecipeInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInfoViewModel.swift; sourceTree = "<group>"; };
+		50399D1829CE4D4100199D92 /* RecipeInfoRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInfoRootView.swift; sourceTree = "<group>"; };
 		503DB8F429B571D6002E664F /* RPImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPImageButton.swift; sourceTree = "<group>"; };
 		503DB8F629B59C50002E664F /* Measurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
 		503DB8F829B59C96002E664F /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		503DB8FA29B59CB3002E664F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		503DB8FC29B59CDA002E664F /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		503DB8FE29B5A09B002E664F /* InstructionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionCell.swift; sourceTree = "<group>"; };
+		5080986729CE634C0071588B /* RPVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPVideoPlayerView.swift; sourceTree = "<group>"; };
 		50A432BD29A2B58700388920 /* RPRecipeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPRecipeLabel.swift; sourceTree = "<group>"; };
-		50E303ED2981F2C80002C90C /* RPFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPFlowLayout.swift; sourceTree = "<group>"; };
+		50E303ED2981F2C80002C90C /* RPCompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPCompositionalLayout.swift; sourceTree = "<group>"; };
 		50E303F1298999030002C90C /* RPConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPConstants.swift; sourceTree = "<group>"; };
 		50E303F32989ABC70002C90C /* RPSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPSectionHeader.swift; sourceTree = "<group>"; };
 		50E303F5298B23970002C90C /* RecipeInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInfoVC.swift; sourceTree = "<group>"; };
 		50E303F7299083290002C90C /* IngredientCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCell.swift; sourceTree = "<group>"; };
 		50F4CE812924793D00AAFED2 /* Recipesto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Recipesto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F4CE842924793D00AAFED2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		50F4CE862924793D00AAFED2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		50F4CE8D2924793E00AAFED2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50F4CE902924793E00AAFED2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		50F4CE922924793E00AAFED2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -157,8 +175,7 @@
 		50399CDF29CB99A200199D92 /* Browse Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				50399CD029C00CFF00199D92 /* MultipleRecipeInfoVC.swift */,
-				50E303F5298B23970002C90C /* RecipeInfoVC.swift */,
+				50399D1529CDFD9E00199D92 /* Recipe Info */,
 				50399CD729CB911400199D92 /* BrowseViewModel.swift */,
 				50F4CE9C292A36DB00AAFED2 /* BrowseVC.swift */,
 				50399D0029CCC7D500199D92 /* BrowseRootView.swift */,
@@ -214,10 +231,35 @@
 			path = "Favorite Recipes";
 			sourceTree = "<group>";
 		};
+		50399D0629CCE9F100199D92 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				50399D0729CCEA0400199D92 /* Coordinator.swift */,
+				50399D0929CCEA1900199D92 /* RPAppCoordinator.swift */,
+				50399D0B29CCF3AD00199D92 /* TabBarCoordinator.swift */,
+				50399D0D29CCF3B400199D92 /* BrowseCoordinator.swift */,
+				50399D0F29CCF3BD00199D92 /* SwipeCoordinator.swift */,
+				50399D1129CCF3C500199D92 /* FavoritesCoordinator.swift */,
+				50399D1329CCF48E00199D92 /* NavigationCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		50399D1529CDFD9E00199D92 /* Recipe Info */ = {
+			isa = PBXGroup;
+			children = (
+				50399CD029C00CFF00199D92 /* MultipleRecipeInfoVC.swift */,
+				50E303F5298B23970002C90C /* RecipeInfoVC.swift */,
+				50399D1829CE4D4100199D92 /* RecipeInfoRootView.swift */,
+				50399D1629CE4CF600199D92 /* RecipeInfoViewModel.swift */,
+			);
+			path = "Recipe Info";
+			sourceTree = "<group>";
+		};
 		50E303EC2981F2A30002C90C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				50E303ED2981F2C80002C90C /* RPFlowLayout.swift */,
+				50E303ED2981F2C80002C90C /* RPCompositionalLayout.swift */,
 				50E303F1298999030002C90C /* RPConstants.swift */,
 				50399CDB29CB948E00199D92 /* NiblessViewController.swift */,
 				50399CF429CBCFCC00199D92 /* NiblessTabBarController.swift */,
@@ -247,6 +289,7 @@
 			children = (
 				50F4CEAC292AFBB100AAFED2 /* App Resources */,
 				50F4CEAE292AFBE300AAFED2 /* Extensions */,
+				50399D0629CCE9F100199D92 /* Coordinators */,
 				50E303EC2981F2A30002C90C /* Utilities */,
 				50F4CEB7292B007500AAFED2 /* Managers */,
 				50F4CEB4292AFFB500AAFED2 /* Models */,
@@ -263,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				50F4CE842924793D00AAFED2 /* AppDelegate.swift */,
-				50F4CE862924793D00AAFED2 /* SceneDelegate.swift */,
 				50F4CE8D2924793E00AAFED2 /* Assets.xcassets */,
 				50F4CE8F2924793E00AAFED2 /* LaunchScreen.storyboard */,
 			);
@@ -336,6 +378,7 @@
 				50F4CEA2292AFAEA00AAFED2 /* RPAlertContainerView.swift */,
 				50E303F32989ABC70002C90C /* RPSectionHeader.swift */,
 				50399CC529B7EE4F00199D92 /* RPTimeView.swift */,
+				5080986729CE634C0071588B /* RPVideoPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -465,10 +508,11 @@
 			files = (
 				50399CF529CBCFCC00199D92 /* NiblessTabBarController.swift in Sources */,
 				50F4CE9B292A36CD00AAFED2 /* SwipeVC.swift in Sources */,
+				50399D1929CE4D4100199D92 /* RecipeInfoRootView.swift in Sources */,
 				50F4CE99292A36A600AAFED2 /* RPTabBarController.swift in Sources */,
 				50399CCF29BC413100199D92 /* RPSearchController.swift in Sources */,
 				50399CFD29CC170300199D92 /* MockNetworkManager.swift in Sources */,
-				50E303EE2981F2C80002C90C /* RPFlowLayout.swift in Sources */,
+				50E303EE2981F2C80002C90C /* RPCompositionalLayout.swift in Sources */,
 				50399CD829CB911400199D92 /* BrowseViewModel.swift in Sources */,
 				50399CCD29BAD99D00199D92 /* SuggestedSearchController.swift in Sources */,
 				50A432BE29A2B58700388920 /* RPRecipeLabel.swift in Sources */,
@@ -487,6 +531,7 @@
 				50399CD129C00CFF00199D92 /* MultipleRecipeInfoVC.swift in Sources */,
 				50399CEB29CBB88F00199D92 /* RPUserSessionRepository.swift in Sources */,
 				50F4CEA3292AFAEA00AAFED2 /* RPAlertContainerView.swift in Sources */,
+				50399D1729CE4CF600199D92 /* RecipeInfoViewModel.swift in Sources */,
 				50F4CE9D292A36DB00AAFED2 /* BrowseVC.swift in Sources */,
 				50F4CEAB292AFB9800AAFED2 /* UIView+Ext.swift in Sources */,
 				50399CE729CBAF0100199D92 /* RPAppDependencyContainer.swift in Sources */,
@@ -494,22 +539,29 @@
 				50399CFB29CC156400199D92 /* NetworkSession.swift in Sources */,
 				503DB8FD29B59CDA002E664F /* Instruction.swift in Sources */,
 				503DB8F929B59C96002E664F /* Result.swift in Sources */,
+				50399D1029CCF3BD00199D92 /* SwipeCoordinator.swift in Sources */,
 				50399CE229CB99C500199D92 /* SwipeRootView.swift in Sources */,
+				50399D0A29CCEA1900199D92 /* RPAppCoordinator.swift in Sources */,
 				50399D0129CCC7D500199D92 /* BrowseRootView.swift in Sources */,
 				50399CDA29CB937E00199D92 /* SwipeViewModel.swift in Sources */,
+				50399D1229CCF3C500199D92 /* FavoritesCoordinator.swift in Sources */,
 				50F4CEB9292B008B00AAFED2 /* NetworkManager.swift in Sources */,
+				50399D0E29CCF3B400199D92 /* BrowseCoordinator.swift in Sources */,
 				50F4CEB6292AFFC800AAFED2 /* Recipe.swift in Sources */,
+				50399D1429CCF48E00199D92 /* NavigationCoordinator.swift in Sources */,
 				50399CC629B7EE4F00199D92 /* RPTimeView.swift in Sources */,
 				50F4CEC3292E026300AAFED2 /* RPRecipeImageView.swift in Sources */,
 				50F4CEA9292AFB6600AAFED2 /* RPBodyLabel.swift in Sources */,
 				50F4CEBD292B04A500AAFED2 /* UIViewController+Ext.swift in Sources */,
+				5080986829CE634C0071588B /* RPVideoPlayerView.swift in Sources */,
 				50399CDE29CB997700199D92 /* NiblessView.swift in Sources */,
+				50399D0C29CCF3AD00199D92 /* TabBarCoordinator.swift in Sources */,
 				50399CC929BAC7C900199D92 /* RecipeResult.swift in Sources */,
 				50399CF329CBBBF300199D92 /* TabBarViewModel.swift in Sources */,
 				503DB8F729B59C50002E664F /* Measurement.swift in Sources */,
+				50399D0829CCEA0400199D92 /* Coordinator.swift in Sources */,
 				50399CDC29CB948E00199D92 /* NiblessViewController.swift in Sources */,
 				50E303F2298999030002C90C /* RPConstants.swift in Sources */,
-				50F4CE872924793D00AAFED2 /* SceneDelegate.swift in Sources */,
 				50399CC429B7EBDA00199D92 /* RPTimeLabel.swift in Sources */,
 				503DB8F529B571D6002E664F /* RPImageButton.swift in Sources */,
 				503DB8FB29B59CB3002E664F /* Item.swift in Sources */,

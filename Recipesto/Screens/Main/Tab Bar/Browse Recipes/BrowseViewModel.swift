@@ -12,6 +12,8 @@ class BrowseViewModel {
     
     enum Input {
         case viewDidAppear
+        case tappedCell(recipe: Item)
+        case search(text: String)
     }
     
     enum Output {
@@ -19,6 +21,8 @@ class BrowseViewModel {
         case fetchBrowseRecipesDidSucceed(results: [Result])
         case fetchSearchRecipesDidSucceed(results: [Item])
     }
+    
+    weak var coordinator: BrowseCoordinator!
     
     let output: PassthroughSubject<Output, Never> = .init()
     var cancellables = Set<AnyCancellable>()
@@ -32,12 +36,21 @@ class BrowseViewModel {
             switch event {
             case .viewDidAppear:
                 self.handleGetFeaturedRecipes()
+            case .tappedCell(let recipe):
+                self.goToRecipeInfoVC(with: recipe)
+            case .search(let text):
+                print(text)
+                self.handleGetSearchRecipes()
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
     }
     
-    func handleGetFeaturedRecipes() {
+    private func goToRecipeInfoVC(with recipe: Item) {
+        coordinator.goToRecipeInfoVC(with: recipe)
+    }
+    
+    private func handleGetFeaturedRecipes() {
         session.getFeaturedRecipes().sink { [weak self] completion in
           if case .failure(let error) = completion {
               self?.output.send(.fetchRecipesDidFail(error: error))
@@ -53,7 +66,7 @@ class BrowseViewModel {
         }.store(in: &cancellables)
     }
     
-    func handleGetSearchRecipes() {
+    private func handleGetSearchRecipes() {
         session.getRandomRecipe().sink { [weak self] completion in
           if case .failure(let error) = completion {
               self?.output.send(.fetchRecipesDidFail(error: error))

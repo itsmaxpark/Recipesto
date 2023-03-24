@@ -28,6 +28,7 @@ class RPTabBarController: NiblessTabBarController {
     
     func createBrowseNC() -> UINavigationController {
         browseVC.title = "Browse"
+        browseVC.navigationItem.title = "Browse"
         browseVC.tabBarItem = UITabBarItem(tabBarSystemItem: .topRated, tag: 0)
         
         return UINavigationController(rootViewController: browseVC)
