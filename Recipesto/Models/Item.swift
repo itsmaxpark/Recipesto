@@ -23,3 +23,9 @@ struct Item: Codable, Hashable {
     let id: Int
 
 }
+
+extension Item: CustomDebugStringConvertible {
+    var debugDescription: String {
+        "Recipe Name: \(self.name)\n"
+    }
+}

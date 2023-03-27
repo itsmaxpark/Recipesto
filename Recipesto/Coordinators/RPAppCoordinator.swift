@@ -1,25 +1,20 @@
 //
 //  RPAppCoordinator.swift
-//  Recipesto
-//
-//  Created by Max Park on 3/23/23.
-//
+//  The top level coordinator for Recipesto
 
 import UIKit
 
 class RPAppCoordinator: Coordinator {
     
     var childCoordinators: [Coordinator] = .init()
-    
     let window: UIWindow
     
     init(window: UIWindow) {
         self.window = window
     }
     
+    /// Inits and sets the main app window to a TabBarController and Coordinator
     func start() {
-        print("App Coordinator Start")
-        // launch tab bar controller
         let tabBarCoordinator = TabBarCoordinator()
         tabBarCoordinator.start()
         self.childCoordinators = [tabBarCoordinator]

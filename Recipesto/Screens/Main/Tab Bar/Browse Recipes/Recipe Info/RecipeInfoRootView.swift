@@ -13,6 +13,7 @@ class RecipeInfoRootView: NiblessView {
     
     let viewModel: RecipeInfoViewModel
     let input: PassthroughSubject<RecipeInfoViewModel.Input, Never> = .init()
+    var cancellables: Set<AnyCancellable> = .init()
     
     struct RecipeSection: Hashable {
         let components: [Component]?
@@ -25,6 +26,7 @@ class RecipeInfoRootView: NiblessView {
     var ingredients: [Section] = []
     var numServings = 0
     var instructions: [Instruction] = []
+    var recipe: Item?
     
     let titleLabel = RPTitleLabel(textAlignment: .left, fontSize: 28)
     let videoPlayer = AVPlayerViewController()
@@ -50,8 +52,24 @@ class RecipeInfoRootView: NiblessView {
         reloadData()
     }
     
+    /// Subscribes the input publisher to receive events in the form of an output
     func bind() {
-        
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+            switch event {
+            case .alreadySaved:
+                // Show alert vc
+                break
+            case .saveActionDidFail(let error):
+                // Show alert vc
+                break
+            case .success:
+                // Show alert vc
+                break
+            }
+        }.store(in: &cancellables)
     }
     
     func set(recipe: Item) {
@@ -61,6 +79,7 @@ class RecipeInfoRootView: NiblessView {
         numServings = recipe.numServings ?? 1
         instructions = recipe.instructions ?? []
         titleLabel.text = name
+        self.recipe = recipe
     }
     
     func reloadData() {
@@ -82,11 +101,12 @@ class RecipeInfoRootView: NiblessView {
                 snapshot.appendItems(instructions, toSection: section)
             }
         }
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
     func addToFavorites() {
-        #warning("TODO: persistance manager")
+        let favorite = self.recipe
+        input.send(.didTapSave(recipe: favorite!))
     }
     
     private func configureVideoPlayer() {

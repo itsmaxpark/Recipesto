@@ -28,7 +28,6 @@ class RPVideoPlayerView: NiblessView {
     }
 
     func setContentUrl(url: NSURL) {
-        print("Setting up item: \(url)")
         let item = AVPlayerItem(url: url as URL)
         player.replaceCurrentItem(with: item)
         playerVC.player = player
@@ -36,7 +35,6 @@ class RPVideoPlayerView: NiblessView {
 
     func play() {
         if (player.currentItem != nil) {
-            print("Starting playback!")
             player.play()
         }
     }

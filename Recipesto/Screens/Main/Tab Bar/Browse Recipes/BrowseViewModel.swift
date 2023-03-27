@@ -35,7 +35,7 @@ class BrowseViewModel {
         input.sink { event in
             switch event {
             case .viewDidAppear:
-                self.handleGetFeaturedRecipes()
+                self.handleGetBrowseRecipes()
             case .tappedCell(let recipe):
                 self.goToRecipeInfoVC(with: recipe)
             case .search(let text):
@@ -50,8 +50,8 @@ class BrowseViewModel {
         coordinator.goToRecipeInfoVC(with: recipe)
     }
     
-    private func handleGetFeaturedRecipes() {
-        session.getFeaturedRecipes().sink { [weak self] completion in
+    private func handleGetBrowseRecipes() {
+        session.getBrowseRecipes().sink { [weak self] completion in
           if case .failure(let error) = completion {
               self?.output.send(.fetchRecipesDidFail(error: error))
           }
@@ -67,7 +67,7 @@ class BrowseViewModel {
     }
     
     private func handleGetSearchRecipes() {
-        session.getRandomRecipe().sink { [weak self] completion in
+        session.getSearchRecipe().sink { [weak self] completion in
           if case .failure(let error) = completion {
               self?.output.send(.fetchRecipesDidFail(error: error))
           }

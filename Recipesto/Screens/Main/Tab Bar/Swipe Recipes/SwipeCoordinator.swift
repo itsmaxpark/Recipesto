@@ -1,23 +1,22 @@
 //
 //  SwipeCoordinator.swift
-//  Recipesto
-//
-//  Created by Max Park on 3/23/23.
-//
+//  The Coordinator for the SwipeVC
 
 import UIKit
 
 class SwipeCoordinator: Coordinator {
     
     var rootViewController: UINavigationController
-    var viewModel = SwipeViewModel()
-    lazy var swipeVC = SwipeVC(viewModel: viewModel)
     
     init() {
         self.rootViewController = UINavigationController()
     }
     
     func start() {
+        let viewModel = SwipeViewModel()
+        viewModel.coordinator = self
+        
+        let swipeVC = SwipeVC(viewModel: viewModel)
         rootViewController.setViewControllers([swipeVC], animated: true)
     }
 }

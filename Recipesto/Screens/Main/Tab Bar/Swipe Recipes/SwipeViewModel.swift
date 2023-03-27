@@ -13,6 +13,7 @@ class SwipeViewModel {
     enum Input {
         case viewDidAppear
         case didSwipeAction
+        case didFavorite(recipe: Item)
     }
     
     enum Output {
@@ -21,6 +22,7 @@ class SwipeViewModel {
         case toggleButtons(isEnabled: Bool)
     }
     
+    weak var coordinator: SwipeCoordinator?
     let output: PassthroughSubject<Output, Never> = .init()
     var cancellables = Set<AnyCancellable>()
     
@@ -33,14 +35,19 @@ class SwipeViewModel {
             switch event {
             case .viewDidAppear, .didSwipeAction:
                 self.handleGetRecipe()
+            case .didFavorite(let recipe):
+                self.handleSaveToFavorite(recipe: recipe)
             }
         }.store(in: &cancellables)
         return output.eraseToAnyPublisher()
     }
     
+    func handleSaveToFavorite(recipe: Item) {
+        //        PersistenceManager.updateWith(favorite: recipe, actionType: .add)
+    }
     func handleGetRecipe() {
         output.send(.toggleButtons(isEnabled: false))
-        session.getRandomRecipe().sink { [weak self] completion in
+        session.getSwipeRecipe().sink { [weak self] completion in
           self?.output.send(.toggleButtons(isEnabled: true))
           if case .failure(let error) = completion {
               self?.output.send(.fetchRecipeDidFail(error: error))

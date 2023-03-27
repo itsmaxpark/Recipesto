@@ -69,7 +69,6 @@ class BrowseRootView: NiblessView {
             case .fetchRecipesDidFail(let error):
                 print("Error fetching browse recipes: \(error)")
             }
-//            self?.reloadData()
         }.store(in: &cancellables)
     }
     
@@ -97,10 +96,15 @@ class BrowseRootView: NiblessView {
         
         // Use RPSectionHeader as supplementary view for collectionView and set title
         dataSource?.supplementaryViewProvider = { [weak self] collectionView, kind, indexPath in
-            guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RPSectionHeader.reuseIdentifier, for: indexPath) as? RPSectionHeader
+            guard let sectionHeader =
+                collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RPSectionHeader.reuseIdentifier, for: indexPath) as? RPSectionHeader
             else { fatalError() }
-            guard let firstRecipe = self?.dataSource?.itemIdentifier(for: indexPath) else { return UICollectionReusableView() }
-            guard let section = self?.dataSource?.snapshot().sectionIdentifier(containingItem: firstRecipe) else { return UICollectionReusableView() }
+            guard let firstRecipe =
+                self?.dataSource?.itemIdentifier(for: indexPath)
+            else { return UICollectionReusableView() }
+            guard let section =
+                self?.dataSource?.snapshot().sectionIdentifier(containingItem: firstRecipe)
+            else { return UICollectionReusableView() }
             if section.name == nil { return UICollectionReusableView() }
 
             sectionHeader.title.text = section.name
@@ -126,9 +130,7 @@ class BrowseRootView: NiblessView {
                 snapshot.appendItems(items, toSection: section)
             }
         }
-        DispatchQueue.main.async {
-            self.dataSource?.apply(snapshot, animatingDifferences: true)
-        }
+        self.dataSource?.apply(snapshot, animatingDifferences: false)
     }
 }
 

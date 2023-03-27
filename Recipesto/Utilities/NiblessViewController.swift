@@ -1,9 +1,6 @@
 //
 //  NiblessViewController.swift
-//  Recipesto
-//
-//  Created by Max Park on 3/22/23.
-//
+//  A UIViewController subclass when not using Nib files or Storyboard
 
 import UIKit
 

@@ -59,7 +59,7 @@ class MultipleRecipeInfoVC: UIViewController {
         sections.append(section)
         snapshot.appendSections(sections)
         
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
     private func addToFavorites() {

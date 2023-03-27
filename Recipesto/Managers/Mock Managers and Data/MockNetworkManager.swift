@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class MockNetworkManager: NetworkSession {
+class MockNetworkManager {
     
     static let shared = MockNetworkManager()
     
@@ -24,7 +24,7 @@ class MockNetworkManager: NetworkSession {
         self.session = session
     }
     
-    func getFeaturedRecipes(page: Int = 0, isVegetarian: Bool = false)
+    func getBrowseRecipes(page: Int = 0, isVegetarian: Bool = false)
         -> AnyPublisher<[String: [Result]], Error> {
         
         if let url = Bundle.main.url(forResource: "MockBrowseData", withExtension: "json") {
@@ -57,7 +57,7 @@ class MockNetworkManager: NetworkSession {
         return Fail(error: "Error" as! Error).eraseToAnyPublisher()
     }
 
-    func getRandomRecipe() -> AnyPublisher<RecipeResult, Error> {
+    func getSwipeRecipe() -> AnyPublisher<RecipeResult, Error> {
         
         if let url = Bundle.main.url(forResource: "MockSwipeData", withExtension: "json") {
             do {

@@ -65,9 +65,7 @@ class RecipeInfoVC: NiblessViewController {
     
     private func configureNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
-        let button = RPImageButton(color: .systemGreen, image: SFSymbols.heart)
-        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        let saveButton = UIBarButtonItem(customView: button)
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(saveButtonTapped))
         navigationItem.rightBarButtonItem = saveButton
     }
     

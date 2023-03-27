@@ -1,20 +1,19 @@
 //
 //  BrowseCoordinator.swift
-//  Recipesto
-//
-//  Created by Max Park on 3/23/23.
-//
+//  The Coordinator for the BrowseVC
 
 import UIKit
 
 class BrowseCoordinator: Coordinator {
     
     var rootViewController: UINavigationController
+    var childCoordinators: [Coordinator] = .init()
     
     init() {
         rootViewController = UINavigationController()
     }
     
+    /// Creates the BrowseVC and injects a BrowseViewModel
     func start() {
         let viewModel = BrowseViewModel()
         viewModel.coordinator = self
@@ -26,9 +25,10 @@ class BrowseCoordinator: Coordinator {
         rootViewController.setViewControllers([browseVC], animated: true)
     }
     
+    /// Navigates to the RecipeInfoVC with an injected Recipe to be displayed
     func goToRecipeInfoVC(with recipe: Item) {
         let viewModel = RecipeInfoViewModel()
-        viewModel.coordinator = self
+        viewModel.coordinator = RecipeInfoCoordinator()
         
         let recipeInfoVC = RecipeInfoVC(viewModel: viewModel)
         recipeInfoVC.rootView.set(recipe: recipe)

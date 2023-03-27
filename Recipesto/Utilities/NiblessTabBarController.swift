@@ -1,9 +1,6 @@
 //
 //  NiblessTabBarController.swift
-//  Recipesto
-//
-//  Created by Max Park on 3/22/23.
-//
+// A UITabBarController subclass when not using Nib files or Storyboard
 
 import UIKit
 
