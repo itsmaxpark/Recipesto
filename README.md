@@ -12,7 +12,7 @@
 
 - A recipe app based off the Tasty API where you can swipe through recipes and find your favorite!
 
-- Shows featured recipes that are updates daily.
+- Shows featured recipes that are updated daily.
 
 - Ability to search through all recipes in the Tasty database
 
