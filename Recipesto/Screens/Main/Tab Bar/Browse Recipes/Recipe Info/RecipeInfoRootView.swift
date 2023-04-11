@@ -1,19 +1,19 @@
 //
-//  RecipeInfoVC.swift
+//  RecipeInfoRootView.swift
 //  Recipesto
 //
-//  Created by Max Park on 2/1/23.
+//  Created by Max Park on 3/24/23.
 //
 
 import UIKit
+import Combine
 import AVKit
 
-class RecipeInfoVC: UIViewController {
+class RecipeInfoRootView: NiblessView {
     
-//    enum DataSection: String, CaseIterable, Hashable {
-//        case ingredient = "ingredient"
-//        case instruction = "instruction"
-//    }
+    let viewModel: RecipeInfoViewModel
+    let input: PassthroughSubject<RecipeInfoViewModel.Input, Never> = .init()
+    var cancellables: Set<AnyCancellable> = .init()
     
     struct RecipeSection: Hashable {
         let components: [Component]?
@@ -26,43 +26,50 @@ class RecipeInfoVC: UIViewController {
     var ingredients: [Section] = []
     var numServings = 0
     var instructions: [Instruction] = []
+    var recipe: Item?
     
     let titleLabel = RPTitleLabel(textAlignment: .left, fontSize: 28)
     let videoPlayer = AVPlayerViewController()
+    let videoPlayerView = RPVideoPlayerView()
     var tableView = UITableView(frame: .zero, style: .grouped)
     var dataSource: UITableViewDiffableDataSource<RecipeSection, AnyHashable>?
     
-    let scrollView = UIScrollView()
     var headerView = UIView(frame: .zero)
     
-    var width: CGFloat = ScreenSize.width
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureVC()
-        configureNavigationBar()
+    // MARK: - Methods
+    init(frame: CGRect, viewModel: RecipeInfoViewModel) {
+        self.viewModel = viewModel
+        super.init(frame: frame)
         configureUI()
-        configureVideoPlayer()
         configureTableView()
         configureDataSource()
+        bind()
+    }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        configureVideoPlayer()
         reloadData()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        if let headerView = tableView.tableHeaderView {
-
-            let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
-            var headerFrame = headerView.frame
-
-            //Comparison necessary to avoid infinite loop
-            if height != headerFrame.size.height {
-                headerFrame.size.height = height
-                headerView.frame = headerFrame
-                tableView.tableHeaderView = headerView
+    /// Subscribes the input publisher to receive events in the form of an output
+    func bind() {
+        let output = viewModel.transform(input: input.eraseToAnyPublisher())
+        output
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] event in
+            switch event {
+            case .alreadySaved:
+                // Show alert vc
+                break
+            case .saveActionDidFail(let error):
+                // Show alert vc
+                break
+            case .success:
+                // Show alert vc
+                break
             }
-        }
+        }.store(in: &cancellables)
     }
     
     func set(recipe: Item) {
@@ -72,6 +79,7 @@ class RecipeInfoVC: UIViewController {
         numServings = recipe.numServings ?? 1
         instructions = recipe.instructions ?? []
         titleLabel.text = name
+        self.recipe = recipe
     }
     
     func reloadData() {
@@ -93,19 +101,17 @@ class RecipeInfoVC: UIViewController {
                 snapshot.appendItems(instructions, toSection: section)
             }
         }
-        dataSource?.apply(snapshot, animatingDifferences: true)
+        dataSource?.apply(snapshot, animatingDifferences: false)
     }
     
-    private func addToFavorites() {
-        #warning("TODO: persistance manager")
+    func addToFavorites() {
+        let favorite = self.recipe
+        input.send(.didTapSave(recipe: favorite!))
     }
     
     private func configureVideoPlayer() {
         guard let url = URL(string: videoUrl) else { return }
-        let player = AVPlayer(url: url)
-        videoPlayer.player = player
-        videoPlayer.showsPlaybackControls = true
-        videoPlayer.view.translatesAutoresizingMaskIntoConstraints = false
+        videoPlayerView.setContentUrl(url: url as NSURL)
     }
     
     private func configureTableView() {
@@ -137,42 +143,25 @@ class RecipeInfoVC: UIViewController {
         })
     }
     
-    private func configureNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-        let button = RPImageButton(color: .systemGreen, image: SFSymbols.heart)
-        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        let saveButton = UIBarButtonItem(customView: button)
-        navigationItem.rightBarButtonItem = saveButton
-    }
-    
-    private func configureVC() {
-        view.backgroundColor = .systemBackground
-        addChild(videoPlayer)
-    }
-    
     private func configureUI() {
-        let padding: CGFloat = 6
-        let width: CGFloat = ScreenSize.width
-        view.addSubview(tableView)
+        addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     
-    @objc private func saveButtonTapped() {
-        addToFavorites()
-    }
 }
 
-extension RecipeInfoVC: UITableViewDelegate {
+extension RecipeInfoRootView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let width: CGFloat = ScreenSize.width
         switch section {
         case 0:
             return 110 + width
@@ -193,19 +182,23 @@ extension RecipeInfoVC: UITableViewDelegate {
         let headerView = UIView()
         switch section {
         case 0:
-            headerView.addSubviews(titleLabel, videoPlayer.view, sectionLabel)
+            headerView.addSubviews(
+                titleLabel,
+                videoPlayerView,
+                sectionLabel
+            )
             NSLayoutConstraint.activate([
                 titleLabel.topAnchor.constraint(equalTo: headerView.topAnchor),
                 titleLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
                 titleLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -padding),
                 titleLabel.heightAnchor.constraint(equalToConstant: 80),
                 
-                videoPlayer.view.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-                videoPlayer.view.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-                videoPlayer.view.widthAnchor.constraint(equalTo: headerView.widthAnchor),
-                videoPlayer.view.heightAnchor.constraint(equalTo: headerView.widthAnchor),
+                videoPlayerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+                videoPlayerView.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
+                videoPlayerView.widthAnchor.constraint(equalTo: headerView.widthAnchor),
+                videoPlayerView.heightAnchor.constraint(equalTo: headerView.widthAnchor),
                 
-                sectionLabel.topAnchor.constraint(equalTo: videoPlayer.view.bottomAnchor, constant: 6),
+                sectionLabel.topAnchor.constraint(equalTo: videoPlayerView.bottomAnchor, constant: 6),
                 sectionLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: padding),
                 sectionLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
                 sectionLabel.heightAnchor.constraint(equalToConstant: 30)
