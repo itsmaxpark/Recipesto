@@ -33,6 +33,7 @@
 - Dependency injection with Coordinator pattern
 - Replacing the use of delegates/protocols with Combine's subscriptions
 - Using API trottling to prevent unnecessary API usage when doing search functions
+- Usage of a Mock Database to test endpoints locally
 ---
 
 ## How To Use
